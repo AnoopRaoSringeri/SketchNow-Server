@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { model, Schema } from "mongoose";
 
 const SketchSchema = new Schema({
   name: {
@@ -20,4 +20,5 @@ const SketchSchema = new Schema({
   },
 });
 
-export const User = model("sketch", SketchSchema);
+const Sketch = model("sketch", SketchSchema);
+export default Sketch;

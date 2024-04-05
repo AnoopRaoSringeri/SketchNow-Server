@@ -1,19 +1,35 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
 import cors from "cors";
+import dotenv from "dotenv";
+import { Request, Response, Router } from "express";
+
+import Sketch from "@/models/sketch-model";
+
 dotenv.config();
 
-const app: Express = express();
+const sketcRouter = Router();
 
-app.use(cors());
-const port = process.env.PORT;
+sketcRouter.use(cors());
 
-app.get("/sketces", (req: Request, res: Response) => {
+sketcRouter.get("/sketces", (req: Request, res: Response) => {
   console.log("Request received");
   res.send("Express + TypeScript Server");
 });
 
-app.post("/create", (req: Request, res: Response) => {
-  console.log("Request received");
-  res.send("Express + TypeScript Server");
+sketcRouter.post("/create", async (req: Request, res: Response) => {
+  try {
+    console.log("Request received", req.body);
+
+    const sketch = await Sketch.create({
+      name: "Sketch 1",
+      metadata: req.body,
+      createdBy: "grg",
+    });
+    res.status(200).json(sketch);
+  } catch (error) {
+    console.log(error);
+
+    res.status(400).json({ error });
+  }
 });
+
+export default sketcRouter;
