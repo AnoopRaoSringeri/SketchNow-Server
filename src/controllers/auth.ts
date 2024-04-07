@@ -1,15 +1,15 @@
 import bcrypt from "bcryptjs";
-import { Router } from "express";
+import dotenv from "dotenv";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import isLoggedIn from "@/middlewares/login";
 import { User } from "@/models/user-model";
 
-const userRouter = Router();
+dotenv.config();
 
 const SECRET = process.env.SECRET_JWT_CODE ?? "";
 
-userRouter.post("/register", async (req, res) => {
+const Register = async (req: Request, res: Response) => {
   try {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     const user = await User.create(req.body);
@@ -17,9 +17,9 @@ userRouter.post("/register", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error });
   }
-});
+};
 
-userRouter.post("/login", async (req, res) => {
+const Login = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (user) {
@@ -40,23 +40,15 @@ userRouter.post("/login", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error });
   }
-});
+};
 
-userRouter.get("/logout", isLoggedIn, async (req, res) => {
+const Logout = async (req: Request, res: Response) => {
   try {
     res.clearCookie("token");
     res.json(true);
   } catch (error) {
     res.status(400).json({ error });
   }
-});
+};
 
-userRouter.get("/", isLoggedIn, async (req, res) => {
-  try {
-    res.json(true);
-  } catch (error) {
-    res.status(400).json({ error });
-  }
-});
-
-export default userRouter;
+export { Login, Logout, Register };

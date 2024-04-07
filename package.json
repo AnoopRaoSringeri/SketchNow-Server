@@ -114,6 +114,10 @@
           "max": 99999,
           "maxEOF": 0
         }
+      ],
+      "no-unused-vars": [
+        "warn",
+        {}
       ]
     }
   },
