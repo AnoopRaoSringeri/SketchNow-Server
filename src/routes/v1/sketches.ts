@@ -1,11 +1,15 @@
 import { Router } from "express";
 
-import { Create, Get } from "@/controllers/sketches";
+import { Create, Get, GetById, Update } from "@/controllers/sketches";
 
 const sketchRouter = Router();
 
-sketchRouter.get("/sketces", Get);
+sketchRouter.get("/sketches", Get);
+
+sketchRouter.get("/sketch/:id", GetById);
 
 sketchRouter.post("/create", Create);
+
+sketchRouter.post("/update/:id", Update);
 
 export default sketchRouter;

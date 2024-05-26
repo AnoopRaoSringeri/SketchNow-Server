@@ -1,5 +1,12 @@
 import { model, Schema } from "mongoose";
 
+type SketchType = {
+  name: string;
+  metadata: object;
+  createdBy: string;
+  createdOn?: Date;
+};
+
 const SketchSchema = new Schema({
   name: {
     type: String,
@@ -21,4 +28,4 @@ const SketchSchema = new Schema({
 });
 
 const Sketch = model("sketch", SketchSchema);
-export default Sketch;
+export { Sketch, SketchType };

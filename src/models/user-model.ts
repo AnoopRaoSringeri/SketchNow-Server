@@ -1,4 +1,10 @@
-import { Schema, model } from "mongoose";
+import { model, Schema } from "mongoose";
+
+type UserType = {
+  username: string;
+  password: string;
+  email: string;
+};
 
 const UserSchema = new Schema({
   username: {
@@ -15,4 +21,6 @@ const UserSchema = new Schema({
   },
 });
 
-export const User = model("user", UserSchema);
+const User = model("user", UserSchema);
+
+export { User, UserType };
