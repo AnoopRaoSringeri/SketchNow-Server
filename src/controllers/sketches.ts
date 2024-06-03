@@ -55,4 +55,17 @@ const Update = async (
   }
 };
 
-export { Create, Get, GetById, Update };
+const Delete = async (
+  req: Request<{ id: string }, {}, SketchType>,
+  res: Response,
+) => {
+  try {
+    const { id } = req.params;
+    await Sketch.deleteOne({ _id: id });
+    res.status(200).json(true);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
+export { Create, Delete, Get, GetById, Update };

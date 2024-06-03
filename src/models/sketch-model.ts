@@ -1,8 +1,25 @@
 import { model, Schema } from "mongoose";
 
+export interface ElementMetadata {
+  x: number;
+  y: number;
+  h: number;
+  w: number;
+  r: number;
+  sa: number;
+  ea: number;
+  points: [number, number][];
+}
+
+export interface CanvasMetadata {
+  elements: ElementMetadata[];
+  height: number;
+  width: number;
+}
+
 type SketchType = {
   name: string;
-  metadata: object;
+  metadata: ElementMetadata[];
   createdBy: string;
   createdOn?: Date;
 };
