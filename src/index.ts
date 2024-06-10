@@ -32,6 +32,7 @@ const start = async () => {
     await mongoose.connect(
       `mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`,
     );
+    console.log(corsOptions);
     https
       .createServer(serverOptions, app)
       .listen(port, () => console.log(`Server started on port ${port}`));
