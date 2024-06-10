@@ -6,8 +6,7 @@ import express, { Express } from "express";
 import https from "https";
 import mongoose from "mongoose";
 
-import { corsOptions } from "@/configs";
-import serverOptions from "@/configs/server";
+import { corsOptions, serverOptions } from "@/configs";
 import { authRouter, sketchRouter } from "@/routes/v1";
 
 import isLoggedIn from "./middlewares/login";
