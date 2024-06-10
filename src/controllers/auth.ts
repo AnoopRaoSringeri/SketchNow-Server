@@ -43,6 +43,7 @@ const Login = async (req: Request<{}, {}, UserType>, res: Response) => {
       res.status(400).json({ error: "User doesn't exist" });
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error });
   }
 };

@@ -20,6 +20,7 @@ const isLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
       res.status(401).json({ error: "No authorization header" });
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error });
   }
 };
