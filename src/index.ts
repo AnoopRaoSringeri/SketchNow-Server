@@ -14,7 +14,6 @@ import isLoggedIn from "./middlewares/login";
 
 dotenv.config();
 const port = process.env.PORT;
-const url = process.env.APPLICATION_URL;
 const app: Express = express();
 
 app.use(express.json());
@@ -33,7 +32,6 @@ const start = async () => {
       `mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`,
     );
     https.createServer(serverOptions, app).listen(port, () => {
-      console.log(url);
       console.log(`Server started on port ${port}`);
     });
   } catch (error) {
