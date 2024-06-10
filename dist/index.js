@@ -25,7 +25,6 @@ const v1_1 = require("@/routes/v1");
 const login_1 = __importDefault(require("./middlewares/login"));
 dotenv_1.default.config();
 const port = process.env.PORT;
-const url = process.env.APPLICATION_URL;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)(configs_1.corsOptions));
@@ -37,7 +36,6 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(`mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`);
         https_1.default.createServer(server_1.default, app).listen(port, () => {
-            console.log(url);
             console.log(`Server started on port ${port}`);
         });
     }
