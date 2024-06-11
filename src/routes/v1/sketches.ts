@@ -1,6 +1,12 @@
 import { Router } from "express";
 
-import { Create, Delete, Get, GetById, Update } from "@/controllers/sketches";
+import {
+  Create,
+  Delete,
+  Get,
+  GetById,
+  Update,
+} from "../../controllers/sketches";
 
 const sketchRouter = Router();
 

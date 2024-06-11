@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import cookieConfig from "@/configs/cookie";
-import { User, UserType } from "@/models/user-model";
+import cookieConfig from "../configs/cookie";
+import { User, UserType } from "../models/user-model";
 
 dotenv.config();
 

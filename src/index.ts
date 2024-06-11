@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -6,10 +7,9 @@ import express, { Express } from "express";
 import https from "https";
 import mongoose from "mongoose";
 
-import { corsOptions, serverOptions } from "@/configs";
-import { authRouter, sketchRouter } from "@/routes/v1";
-
+import { corsOptions, serverOptions } from "./configs";
 import isLoggedIn from "./middlewares/login";
+import { authRouter, sketchRouter } from "./routes/v1";
 
 dotenv.config();
 const port = process.env.PORT;

@@ -1,7 +1,12 @@
 import { Router } from "express";
 
-import { IsSessionvValid, Login, Logout, Register } from "@/controllers/auth";
-import isLoggedIn from "@/middlewares/login";
+import {
+  IsSessionvValid,
+  Login,
+  Logout,
+  Register,
+} from "../../controllers/auth";
+import isLoggedIn from "../../middlewares/login";
 
 const authRouter = Router();
 

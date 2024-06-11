@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { Sketch, SketchType } from "@/models/sketch-model";
+import { Sketch, SketchType } from "../models/sketch-model";
 
 const Get = async (req: Request, res: Response) => {
   try {
