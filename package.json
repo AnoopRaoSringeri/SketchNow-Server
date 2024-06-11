@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./src/index.ts",
-    "start": "node ./index.js",
-    "build": "yarn add npx tsc -p tsconfig.json "
+    "start": "node dist/index.js",
+    "build": "yarn add npx tsc "
   },
   "dependencies": {
     "@types/express-session": "^1.18.0",
