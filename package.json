@@ -1,12 +1,12 @@
 {
   "name": "skecthnow",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "index.js",
   "author": "Anoop",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./src/index.ts",
-    "start": "node ../index.js",
+    "start": "node dist/index.js",
     "build": "yarn add npx tsc "
   },
   "dependencies": {
