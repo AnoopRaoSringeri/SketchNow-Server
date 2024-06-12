@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Register = exports.Logout = exports.Login = exports.IsSessionvValid = void 0;
+exports.Register = exports.Public = exports.Logout = exports.Login = exports.IsSessionvValid = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -12,6 +12,10 @@ const cookie_1 = __importDefault(require("../configs/cookie"));
 const user_model_1 = require("../models/user-model");
 dotenv_1.default.config();
 const SECRET = (_a = process.env.SECRET_JWT_CODE) !== null && _a !== void 0 ? _a : "";
+const Public = async (req, res) => {
+    res.send("Hiii");
+};
+exports.Public = Public;
 const Register = async (req, res) => {
     try {
         req.body.password = await bcryptjs_1.default.hash(req.body.password, 10);

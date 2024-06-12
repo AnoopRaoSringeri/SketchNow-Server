@@ -7,6 +7,7 @@ const express_1 = require("express");
 const auth_1 = require("../../controllers/auth");
 const login_1 = __importDefault(require("../../middlewares/login"));
 const authRouter = (0, express_1.Router)();
+authRouter.get("/public", auth_1.Public);
 authRouter.get("/", login_1.default, auth_1.IsSessionvValid);
 authRouter.post("/register", auth_1.Register);
 authRouter.post("/login", auth_1.Login);

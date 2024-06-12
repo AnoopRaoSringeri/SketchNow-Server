@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const corsOptions = {
-    origin: ["https://sketchnow-client.onrender.com", "https://localhost:3000"],
-    credentials: true,
+    // origin: ["https://sketchnow-client.onrender.com", "https://localhost:3000"],
+    // credentials: true,
+    allowedHeaders: "*",
+    origin: "*",
+    exposedHeaders: "*",
 };
 exports.default = corsOptions;
