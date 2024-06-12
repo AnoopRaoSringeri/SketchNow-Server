@@ -5,6 +5,5 @@ const corsOptions = {
     // credentials: true,
     allowedHeaders: "*",
     origin: "*",
-    exposedHeaders: "*",
 };
 exports.default = corsOptions;
