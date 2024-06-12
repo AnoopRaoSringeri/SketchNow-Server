@@ -10,7 +10,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const configs_1 = require("./configs");
-const login_1 = __importDefault(require("./middlewares/login"));
 const v1_1 = require("./routes/v1");
 dotenv_1.default.config();
 const port = process.env.PORT;
@@ -19,7 +18,7 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)(configs_1.corsOptions));
 app.use((0, cookie_parser_1.default)());
 app.use("/", v1_1.authRouter);
-app.use(login_1.default);
+// app.use(isLoggedIn);
 app.use("/", v1_1.sketchRouter);
 const start = async () => {
     try {
