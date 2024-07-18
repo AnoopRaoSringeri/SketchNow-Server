@@ -8,25 +8,21 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 dotenv_1.default.config();
 const SECRET = (_a = process.env.SECRET_JWT_CODE) !== null && _a !== void 0 ? _a : "";
-const isLoggedIn = async (req, res, next) => {
+const getCurrentSession = async (req) => {
     try {
         const { token } = req.cookies;
         if (token) {
             const payload = await jsonwebtoken_1.default.verify(token, SECRET);
-            if (payload) {
-                next();
+            if (payload && typeof payload == "object") {
+                const { email, username, password, _id } = payload;
+                return { email, username, password, _id };
             }
-            else {
-                res.status(401).json({ error: "token verification failed" });
-            }
+            return null;
         }
-        else {
-            res.status(401).json({ error: "No authorization header" });
-        }
+        return null;
     }
     catch (error) {
-        console.log(error);
-        res.status(400).json({ error });
+        return null;
     }
 };
-exports.default = isLoggedIn;
+exports.default = getCurrentSession;

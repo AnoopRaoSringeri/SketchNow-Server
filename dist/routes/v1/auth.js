@@ -12,4 +12,7 @@ authRouter.get("/", login_1.default, auth_1.IsSessionvValid);
 authRouter.post("/register", auth_1.Register);
 authRouter.post("/login", auth_1.Login);
 authRouter.get("/logout", login_1.default, auth_1.Logout);
+authRouter.post("/forgotPassword", auth_1.ForgotPassword);
+authRouter.get("/resetPasswordPage/:token", auth_1.ResetPasswordPage);
+authRouter.post("/resetPassword/:token", auth_1.ResetPassword);
 exports.default = authRouter;
