@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
+import getCurrentSession from "src/middlewares/session";
 
 import { Sketch, SketchType } from "../models/sketch-model";
 
 const Get = async (req: Request, res: Response) => {
   try {
-    const sketches = await Sketch.find({});
-    res.status(200).json(sketches);
+    const session = await getCurrentSession(req);
+    if (session) {
+      const { _id } = session;
+      const sketches = await Sketch.find({ createdBy: _id });
+      res.status(200).json(sketches);
+    }
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -22,13 +27,17 @@ const GetById = async (req: Request, res: Response) => {
 
 const Create = async (req: Request<{}, {}, SketchType>, res: Response) => {
   try {
-    const { name, createdBy, metadata } = req.body;
-    const sketch = await Sketch.create({
-      name,
-      metadata,
-      createdBy,
-    });
-    res.status(200).json(sketch);
+    const { name, metadata } = req.body;
+    const session = await getCurrentSession(req);
+    if (session) {
+      const { _id } = session;
+      const sketch = await Sketch.create({
+        name,
+        metadata,
+        createdBy: _id,
+      });
+      res.status(200).json(sketch);
+    }
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -40,13 +49,12 @@ const Update = async (
 ) => {
   try {
     const { id } = req.params;
-    const { name, createdBy, metadata } = req.body;
+    const { name, metadata } = req.body;
     await Sketch.updateOne(
       { _id: id },
       {
         name,
         metadata,
-        createdBy,
       },
     );
     res.status(200).json(true);
