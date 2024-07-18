@@ -7,7 +7,7 @@ exports.sendEmailAsTemplate = exports.sendEmail = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const mailer_1 = __importDefault(require("src/services/mailer"));
+const mailer_1 = __importDefault(require("../services/mailer"));
 dotenv_1.default.config();
 const sendEmail = async ({ to, subject, text }) => {
     try {

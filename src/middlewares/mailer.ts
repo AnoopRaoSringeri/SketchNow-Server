@@ -1,11 +1,12 @@
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
+
 import {
   SendEmailRequest,
   SendEmailWithTemplateRequest,
-} from "src/models/helper-models/mail";
-import transporter from "src/services/mailer";
+} from "../models/helper-models/mail";
+import transporter from "../services/mailer";
 
 dotenv.config();
 

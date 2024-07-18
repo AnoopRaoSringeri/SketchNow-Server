@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Update = exports.GetById = exports.Get = exports.Delete = exports.Create = void 0;
-const session_1 = __importDefault(require("src/middlewares/session"));
+const session_1 = __importDefault(require("../middlewares/session"));
 const sketch_model_1 = require("../models/sketch-model");
 const Get = async (req, res) => {
     try {

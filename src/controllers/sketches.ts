@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import getCurrentSession from "src/middlewares/session";
 
+import getCurrentSession from "../middlewares/session";
 import { Sketch, SketchType } from "../models/sketch-model";
 
 const Get = async (req: Request, res: Response) => {
