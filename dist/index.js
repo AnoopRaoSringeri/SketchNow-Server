@@ -8,7 +8,6 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const hbs_1 = __importDefault(require("hbs"));
-const https_1 = __importDefault(require("https"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
 const configs_1 = require("./configs");
@@ -31,12 +30,12 @@ app.use("/", v1_1.sketchRouter);
 const start = async () => {
     try {
         await mongoose_1.default.connect(`mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`);
-        https_1.default.createServer(configs_1.serverOptions, app).listen(port, () => {
-            console.log(`Server started on port ${port}`);
-        });
-        // app.listen(port, () => {
-        //   console.log(`App is Listening on PORT ${port}`);
+        // https.createServer(serverOptions, app).listen(port, () => {
+        //   console.log(`Server started on port ${port}`);
         // });
+        app.listen(port, () => {
+            console.log(`App is Listening on PORT ${port}`);
+        });
     }
     catch (error) {
         console.error(error);
