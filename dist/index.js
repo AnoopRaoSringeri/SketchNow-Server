@@ -15,7 +15,7 @@ const hbs_1 = __importDefault(require("hbs"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
 const configs_1 = require("./configs");
-const login_1 = __importDefault(require("./middlewares/login"));
+// const login_1 = __importDefault(require("./middlewares/login"));
 const v1_1 = require("./routes/v1");
 dotenv_1.default.config();
 const port = process.env.PORT;
