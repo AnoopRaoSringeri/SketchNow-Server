@@ -12,23 +12,20 @@ dotenv.config();
 
 const sendEmail = async ({ to, subject, text }: SendEmailRequest) => {
   try {
-    // const transporter = nodemailer.createTransport({
-    //   host: "smtp.ethereal.email",
-    //   port: 587,
-    //   auth: {
-    //     user: "bette15@ethereal.email",
-    //     pass: "Gk1xXps8km7R22ssPM",
-    //   },
-    // });
+    await transporter.sendMail(
+      {
+        from: process.env.EMAIL,
+        to,
+        subject,
+        text,
+      },
+      (err, info) => {
+        console.log("Error: ", err);
+        console.log("Info: ", info);
+      },
+    );
 
-    await transporter.sendMail({
-      from: process.env.EMAIL,
-      to,
-      subject,
-      text,
-    });
-
-    console.log("email sent sucessfully");
+    console.log(`email sent sucessfully from ${process.env.EMAIL} to ${to}`);
   } catch (error) {
     console.log(error, "email not sent");
   }

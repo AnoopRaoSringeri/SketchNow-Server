@@ -1,12 +1,14 @@
+import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  auth: {
-    user: "bette15@ethereal.email",
-    pass: "Gk1xXps8km7R22ssPM",
-  },
-  // service: "Gmail",
-});
+import { transportDev, transportProd } from "../configs/mailer";
+
+dotenv.config();
+
+const isProd = process.env.NODE_ENV === "production";
+
+const transporter = nodemailer.createTransport(
+  isProd ? transportProd : transportDev,
+);
+
 export default transporter;
