@@ -11,21 +11,16 @@ const mailer_1 = __importDefault(require("../services/mailer"));
 dotenv_1.default.config();
 const sendEmail = async ({ to, subject, text }) => {
     try {
-        // const transporter = nodemailer.createTransport({
-        //   host: "smtp.ethereal.email",
-        //   port: 587,
-        //   auth: {
-        //     user: "bette15@ethereal.email",
-        //     pass: "Gk1xXps8km7R22ssPM",
-        //   },
-        // });
         await mailer_1.default.sendMail({
             from: process.env.EMAIL,
             to,
             subject,
             text,
+        }, (err, info) => {
+            console.log("Error: ", err);
+            console.log("Info: ", info);
         });
-        console.log("email sent sucessfully");
+        console.log(`email sent sucessfully from ${process.env.EMAIL} to ${to}`);
     }
     catch (error) {
         console.log(error, "email not sent");

@@ -11,13 +11,14 @@ import path from "path";
 import { corsOptions } from "./configs";
 import isLoggedIn from "./middlewares/login";
 import { authRouter, sketchRouter } from "./routes/v1";
+import uploadRouter from "./routes/v1/upload";
 
 dotenv.config();
 const port = process.env.PORT;
 const app: Express = express();
 
 app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.set("view engine", "html");
@@ -30,6 +31,8 @@ app.use("/", authRouter);
 app.use(isLoggedIn);
 
 app.use("/", sketchRouter);
+
+app.use("/", uploadRouter);
 
 const start = async () => {
   try {

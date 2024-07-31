@@ -13,6 +13,7 @@ export interface ElementMetadata {
 
 export interface CanvasMetadata {
   elements: ElementMetadata[];
+  tables: ElementMetadata[];
   height: number;
   width: number;
 }

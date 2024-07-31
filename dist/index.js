@@ -15,11 +15,12 @@ const path_1 = __importDefault(require("path"));
 const configs_1 = require("./configs");
 const login_1 = __importDefault(require("./middlewares/login"));
 const v1_1 = require("./routes/v1");
+const upload_1 = __importDefault(require("./routes/v1/upload"));
 dotenv_1.default.config();
 const port = process.env.PORT;
 const app = (0, express_1.default)();
 app.use(express_1.default.json({ limit: "50mb" }));
-app.use(express_1.default.urlencoded({ limit: "50mb" }));
+app.use(express_1.default.urlencoded({ limit: "50mb", extended: true }));
 app.use((0, cors_1.default)(configs_1.corsOptions));
 app.use((0, cookie_parser_1.default)());
 app.set("view engine", "html");
@@ -29,6 +30,7 @@ app.engine("html", hbs_1.default.__express);
 app.use("/", v1_1.authRouter);
 app.use(login_1.default);
 app.use("/", v1_1.sketchRouter);
+app.use("/", upload_1.default);
 const start = async () => {
     try {
         await mongoose_1.default.connect(`mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`);

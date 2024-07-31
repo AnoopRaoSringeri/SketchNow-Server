@@ -3,14 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const transporter = nodemailer_1.default.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    auth: {
-        user: "bette15@ethereal.email",
-        pass: "Gk1xXps8km7R22ssPM",
-    },
-    // service: "Gmail",
-});
+const mailer_1 = require("../configs/mailer");
+dotenv_1.default.config();
+const isProd = process.env.NODE_ENV === "production";
+const transporter = nodemailer_1.default.createTransport(isProd ? mailer_1.transportProd : mailer_1.transportDev);
 exports.default = transporter;
