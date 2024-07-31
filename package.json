@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.ts",
     "start": "node dist/index.js",
-    "build": "npx tsc "
+    "build": "yarn add npx tsc "
   },
   "dependencies": {
     "@types/express-session": "^1.18.0",
