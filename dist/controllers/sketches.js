@@ -3,16 +3,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Update = exports.GetById = exports.Get = exports.Delete = exports.Create = void 0;
+exports.Update = exports.GetImageData = exports.GetById = exports.Get = exports.Delete = exports.Create = void 0;
 const session_1 = __importDefault(require("../middlewares/session"));
 const sketch_model_1 = require("../models/sketch-model");
+const redis_1 = require("../services/redis");
 const Get = async (req, res) => {
     try {
         const session = await (0, session_1.default)(req);
         if (session) {
             const { _id } = session;
-            const sketches = await sketch_model_1.Sketch.find({ createdBy: _id });
-            res.status(200).json(sketches);
+            const dbSketches = await sketch_model_1.Sketch.find({ createdBy: _id });
+            res.status(200).json(dbSketches);
         }
     }
     catch (error) {
@@ -22,17 +23,33 @@ const Get = async (req, res) => {
 exports.Get = Get;
 const GetById = async (req, res) => {
     try {
-        const sketch = await sketch_model_1.Sketch.findById(req.params.id);
-        res.status(200).json(sketch);
+        const session = await (0, session_1.default)(req);
+        if (session) {
+            const sketch = await sketch_model_1.Sketch.findById(req.params.id);
+            res.status(200).json(sketch);
+        }
     }
     catch (error) {
         res.status(400).json({ error });
     }
 };
 exports.GetById = GetById;
+const GetImageData = async (req, res) => {
+    try {
+        const session = await (0, session_1.default)(req);
+        if (session) {
+            const dataUrl = await redis_1.RedisClient.get(req.params.id.toString());
+            res.status(200).json(dataUrl);
+        }
+    }
+    catch (error) {
+        res.status(400).json({ error });
+    }
+};
+exports.GetImageData = GetImageData;
 const Create = async (req, res) => {
     try {
-        const { name, metadata } = req.body;
+        const { name, metadata, dataUrl } = req.body;
         const session = await (0, session_1.default)(req);
         if (session) {
             const { _id } = session;
@@ -41,6 +58,7 @@ const Create = async (req, res) => {
                 metadata,
                 createdBy: _id,
             });
+            await redis_1.RedisClient.set(sketch._id.toString(), dataUrl !== null && dataUrl !== void 0 ? dataUrl : "");
             res.status(200).json(sketch);
         }
     }
@@ -52,11 +70,12 @@ exports.Create = Create;
 const Update = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, metadata } = req.body;
+        const { name, metadata, dataUrl } = req.body;
         await sketch_model_1.Sketch.updateOne({ _id: id }, {
             name,
             metadata,
         });
+        await redis_1.RedisClient.set(id, dataUrl !== null && dataUrl !== void 0 ? dataUrl : "");
         res.status(200).json(true);
     }
     catch (error) {
