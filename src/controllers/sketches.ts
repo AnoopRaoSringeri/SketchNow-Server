@@ -2,14 +2,15 @@ import { Request, Response } from "express";
 
 import getCurrentSession from "../middlewares/session";
 import { Sketch, SketchType } from "../models/sketch-model";
+import { RedisClient } from "../services/redis";
 
 const Get = async (req: Request, res: Response) => {
   try {
     const session = await getCurrentSession(req);
     if (session) {
       const { _id } = session;
-      const sketches = await Sketch.find({ createdBy: _id });
-      res.status(200).json(sketches);
+      const dbSketches = await Sketch.find({ createdBy: _id });
+      res.status(200).json(dbSketches);
     }
   } catch (error) {
     res.status(400).json({ error });
@@ -18,8 +19,23 @@ const Get = async (req: Request, res: Response) => {
 
 const GetById = async (req: Request, res: Response) => {
   try {
-    const sketch = await Sketch.findById(req.params.id);
-    res.status(200).json(sketch);
+    const session = await getCurrentSession(req);
+    if (session) {
+      const sketch = await Sketch.findById(req.params.id);
+      res.status(200).json(sketch);
+    }
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
+const GetImageData = async (req: Request, res: Response) => {
+  try {
+    const session = await getCurrentSession(req);
+    if (session) {
+      const dataUrl = await RedisClient.get(req.params.id.toString());
+      res.status(200).json(dataUrl);
+    }
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -27,7 +43,7 @@ const GetById = async (req: Request, res: Response) => {
 
 const Create = async (req: Request<{}, {}, SketchType>, res: Response) => {
   try {
-    const { name, metadata } = req.body;
+    const { name, metadata, dataUrl } = req.body;
     const session = await getCurrentSession(req);
     if (session) {
       const { _id } = session;
@@ -36,6 +52,7 @@ const Create = async (req: Request<{}, {}, SketchType>, res: Response) => {
         metadata,
         createdBy: _id,
       });
+      await RedisClient.set(sketch._id.toString(), dataUrl ?? "");
       res.status(200).json(sketch);
     }
   } catch (error) {
@@ -49,7 +66,7 @@ const Update = async (
 ) => {
   try {
     const { id } = req.params;
-    const { name, metadata } = req.body;
+    const { name, metadata, dataUrl } = req.body;
     await Sketch.updateOne(
       { _id: id },
       {
@@ -57,6 +74,7 @@ const Update = async (
         metadata,
       },
     );
+    await RedisClient.set(id, dataUrl ?? "");
     res.status(200).json(true);
   } catch (error) {
     res.status(400).json({ error });
@@ -76,4 +94,4 @@ const Delete = async (
   }
 };
 
-export { Create, Delete, Get, GetById, Update };
+export { Create, Delete, Get, GetById, GetImageData, Update };

@@ -4,14 +4,15 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Express } from "express";
 import hbs from "hbs";
-// import https from "https";
+import https from "https";
 import mongoose from "mongoose";
 import path from "path";
 
-import { corsOptions } from "./configs";
+import { corsOptions, serverOptions } from "./configs";
 import isLoggedIn from "./middlewares/login";
 import { authRouter, sketchRouter } from "./routes/v1";
 import uploadRouter from "./routes/v1/upload";
+import { RedisClient } from "./services/redis";
 
 dotenv.config();
 const port = process.env.PORT;
@@ -39,12 +40,14 @@ const start = async () => {
     await mongoose.connect(
       `mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`,
     );
-    // https.createServer(serverOptions, app).listen(port, () => {
-    //   console.log(`Server started on port ${port}`);
-    // });
-    app.listen(port, () => {
-      console.log(`App is Listening on PORT ${port}`);
+    await RedisClient.connect();
+
+    https.createServer(serverOptions, app).listen(port, () => {
+      console.log(`Server started on port ${port}`);
     });
+    // app.listen(port, () => {
+    //   console.log(`App is Listening on PORT ${port}`);
+    // });
   } catch (error) {
     console.error(error);
     process.exit(1);

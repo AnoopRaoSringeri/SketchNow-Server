@@ -23,6 +23,7 @@ type SketchType = {
   metadata: ElementMetadata[];
   createdBy: string;
   createdOn?: Date;
+  dataUrl?: string;
 };
 
 const SketchSchema = new Schema({
