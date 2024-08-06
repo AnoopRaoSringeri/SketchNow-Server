@@ -27,6 +27,15 @@ const Register = async (req, res) => {
             password,
             username,
         });
+        (0, mailer_1.sendEmailAsTemplate)({
+            to: email,
+            subject: "Welcome to SketchNow",
+            template: "welcome",
+            text: "Welcome to SketchNow",
+            data: {
+                username,
+            },
+        });
         res.json(user);
     }
     catch (error) {
