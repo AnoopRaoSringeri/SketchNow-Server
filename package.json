@@ -28,6 +28,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.14",
     "redis": "^4.7.0",
+    "styliner": "^1.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },

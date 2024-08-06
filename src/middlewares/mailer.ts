@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import fs from "fs";
+import { handlebars } from "hbs";
 import path from "path";
 
 import {
@@ -9,6 +10,19 @@ import {
 import transporter from "../services/mailer";
 
 dotenv.config();
+
+const readHTMLFile = function (
+  contentPath: string,
+  callback: (err: Error | null, html?: string) => unknown,
+) {
+  fs.readFile(contentPath, { encoding: "utf-8" }, function (err, html) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, html);
+    }
+  });
+};
 
 const sendEmail = async ({ to, subject, text }: SendEmailRequest) => {
   try {
@@ -36,23 +50,30 @@ const sendEmailAsTemplate = async ({
   subject,
   text,
   template,
+  data,
 }: SendEmailWithTemplateRequest) => {
   try {
     const p = path.join(
       "C:\\My-Projects\\Apps\\SketchNow\\SketchNow-Server\\src\\templates",
       `${template}.html`,
     );
-    const htmlstream = fs.createReadStream(p);
+    readHTMLFile(p, async (err, html) => {
+      if (err) {
+        console.log("error reading file", err);
+        return;
+      }
+      const compiledTemplate = handlebars.compile(html);
+      const htmlToSend = compiledTemplate(data);
+      await transporter.sendMail({
+        from: process.env.EMAIL,
+        to,
+        subject,
+        text,
+        html: htmlToSend,
+      });
 
-    await transporter.sendMail({
-      from: process.env.EMAIL,
-      to,
-      subject,
-      text,
-      html: htmlstream,
+      console.log("email sent sucessfully");
     });
-
-    console.log("email sent sucessfully");
   } catch (error) {
     console.log(error, "email not sent");
   }

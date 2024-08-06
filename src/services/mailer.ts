@@ -7,8 +7,6 @@ dotenv.config();
 
 const isProd = process.env.NODE_ENV === "production";
 
-const transporter = nodemailer.createTransport(
-  isProd ? transportProd : transportDev,
-);
+const transporter = nodemailer.createTransport(transportProd);
 
 export default transporter;

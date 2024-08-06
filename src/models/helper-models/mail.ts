@@ -9,4 +9,5 @@ export type SendEmailWithTemplateRequest = {
   subject: string;
   text: string;
   template: string;
+  data?: { [key: string]: string };
 };

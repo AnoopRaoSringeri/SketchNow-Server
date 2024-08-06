@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 import cookieConfig from "../configs/cookie";
-import { sendEmail } from "../middlewares/mailer";
+import { sendEmail, sendEmailAsTemplate } from "../middlewares/mailer";
 import { User, UserType } from "../models/user-model";
 
 dotenv.config();
@@ -24,6 +24,15 @@ const Register = async (req: Request<{}, {}, UserType>, res: Response) => {
       email,
       password,
       username,
+    });
+    sendEmailAsTemplate({
+      to: email,
+      subject: "Welcome to SketchNow",
+      template: "welcome",
+      text: "Welcome to SketchNow",
+      data: {
+        username,
+      },
     });
     res.json(user);
   } catch (error) {
