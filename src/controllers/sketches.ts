@@ -9,7 +9,12 @@ const Get = async (req: Request, res: Response) => {
     const session = await getCurrentSession(req);
     if (session) {
       const { _id } = session;
-      const dbSketches = await Sketch.find({ createdBy: _id });
+      const dbSketches = await Sketch.find({ createdBy: _id }).select([
+        "_id",
+        "name",
+        "createdBy",
+        "createdOn",
+      ]);
       res.status(200).json(dbSketches);
     }
   } catch (error) {

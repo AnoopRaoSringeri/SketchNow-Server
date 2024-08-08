@@ -12,7 +12,12 @@ const Get = async (req, res) => {
         const session = await (0, session_1.default)(req);
         if (session) {
             const { _id } = session;
-            const dbSketches = await sketch_model_1.Sketch.find({ createdBy: _id });
+            const dbSketches = await sketch_model_1.Sketch.find({ createdBy: _id }).select([
+                "_id",
+                "name",
+                "createdBy",
+                "createdOn",
+            ]);
             res.status(200).json(dbSketches);
         }
     }
