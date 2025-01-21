@@ -1,26 +1,18 @@
 import { model, Schema } from "mongoose";
-
-export interface ElementMetadata {
-  x: number;
-  y: number;
-  h: number;
-  w: number;
-  r: number;
-  sa: number;
-  ea: number;
-  points: [number, number][];
-}
-
-export interface CanvasMetadata {
-  elements: ElementMetadata[];
-  tables: ElementMetadata[];
-  height: number;
-  width: number;
-}
+import { CanvasObject } from "./helper-models/canvas/canvas-objects";
+import { CanvasMetadata } from "./helper-models/sketch/sketch-metadata";
 
 type SketchType = {
   name: string;
-  metadata: ElementMetadata[];
+  metadata: CanvasMetadata;
+  createdBy: string;
+  createdOn?: Date;
+  dataUrl?: string;
+};
+
+type SketchUpdateRequest = {
+  name: string;
+  metadata: CanvasMetadata & { deletedSources: string[] };
   createdBy: string;
   createdOn?: Date;
   dataUrl?: string;
@@ -47,4 +39,4 @@ const SketchSchema = new Schema({
 });
 
 const Sketch = model("sketch", SketchSchema);
-export { Sketch, SketchType };
+export { Sketch, SketchType, SketchUpdateRequest };

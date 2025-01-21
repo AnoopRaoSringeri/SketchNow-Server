@@ -1,8 +1,14 @@
 import { Request, Response } from "express";
 
 import getCurrentSession from "../middlewares/session";
-import { Sketch, SketchType } from "../models/sketch-model";
+import {
+  Sketch,
+  SketchType,
+  SketchUpdateRequest,
+} from "../models/sketch-model";
 import { RedisClient } from "../services/redis";
+import fs from "fs";
+import { AppConfig } from "../configs";
 
 const Get = async (req: Request, res: Response) => {
   try {
@@ -66,7 +72,7 @@ const Create = async (req: Request<{}, {}, SketchType>, res: Response) => {
 };
 
 const Update = async (
-  req: Request<{ id: string }, {}, SketchType>,
+  req: Request<{ id: string }, {}, SketchUpdateRequest>,
   res: Response,
 ) => {
   try {
@@ -80,6 +86,11 @@ const Update = async (
       },
     );
     await RedisClient.set(id, dataUrl ?? "");
+    metadata.deletedSources.forEach((deletedSource) => {
+      fs.unlink(`${AppConfig.ChartsDataPath}/${deletedSource}.csv`, () => {
+        //
+      });
+    });
     res.status(200).json(true);
   } catch (error) {
     res.status(400).json({ error });
@@ -92,6 +103,20 @@ const Delete = async (
 ) => {
   try {
     const { id } = req.params;
+    const sketch = await Sketch.findById<SketchType>(req.params.id);
+    sketch?.metadata.elements.forEach((data) => {
+      if (data.type == "chart") {
+        const { metadata: chartMetadata } = data.value;
+        if (chartMetadata.source.type == "File") {
+          fs.unlink(
+            `${AppConfig.ChartsDataPath}/${chartMetadata.source.id}.csv`,
+            () => {
+              //
+            },
+          );
+        }
+      }
+    });
     await Sketch.deleteOne({ _id: id });
     res.status(200).json(true);
   } catch (error) {

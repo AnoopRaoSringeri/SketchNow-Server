@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import cookieConfig from "../configs/cookie";
 import { sendEmail, sendEmailAsTemplate } from "../middlewares/mailer";
 import { User, UserType } from "../models/user-model";
+import getCurrentSession from "../middlewares/session";
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ const Register = async (req: Request<{}, {}, UserType>, res: Response) => {
       password,
       username,
     });
-    sendEmailAsTemplate({
+    await sendEmailAsTemplate({
       to: email,
       subject: "Welcome to SketchNow",
       template: "welcome",
@@ -148,9 +149,10 @@ const ResetPassword = async (req: Request, res: Response) => {
   }
 };
 
-const IsSessionvValid = async (req: Request, res: Response) => {
+const IsSessionValid = async (req: Request, res: Response) => {
   try {
-    res.json(true);
+    const session = await getCurrentSession(req);
+    res.json(session);
   } catch (error) {
     res.status(400).json({ error });
   }
@@ -158,7 +160,7 @@ const IsSessionvValid = async (req: Request, res: Response) => {
 
 export {
   ForgotPassword,
-  IsSessionvValid,
+  IsSessionValid,
   Login,
   Logout,
   Public,

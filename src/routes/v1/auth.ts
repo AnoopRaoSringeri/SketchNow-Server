@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import {
   ForgotPassword,
-  IsSessionvValid,
+  IsSessionValid,
   Login,
   Logout,
   Public,
@@ -16,7 +16,7 @@ const authRouter = Router();
 
 authRouter.get("/public", Public);
 
-authRouter.get("/", isLoggedIn, IsSessionvValid);
+authRouter.get("/", isLoggedIn, IsSessionValid);
 
 authRouter.post("/register", Register);
 

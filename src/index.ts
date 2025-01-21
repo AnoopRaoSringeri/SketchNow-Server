@@ -11,15 +11,15 @@ import path from "path";
 import { corsOptions, serverOptions } from "./configs";
 import isLoggedIn from "./middlewares/login";
 import { authRouter, sketchRouter } from "./routes/v1";
-import uploadRouter from "./routes/v1/upload";
+import uploadRouter from "./routes/v1/visualize";
 import { RedisClient } from "./services/redis";
 
 dotenv.config();
 const port = process.env.PORT;
 const app: Express = express();
 
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.set("view engine", "html");
