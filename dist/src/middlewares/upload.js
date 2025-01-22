@@ -4,14 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.upload = void 0;
-const multer_1 = __importDefault(require("multer"));
-const configs_1 = require("../configs");
-const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const mongodb_1 = require("mongodb");
+const multer_1 = __importDefault(require("multer"));
+const path_1 = __importDefault(require("path"));
+const configs_1 = require("../configs");
 // Set up storage for uploaded files
 const storage = multer_1.default.diskStorage({
     destination: (req, file, cb) => {
+        if (!fs_1.default.existsSync(configs_1.AppConfig.ChartsDataPath)) {
+            fs_1.default.mkdirSync(configs_1.AppConfig.ChartsDataPath);
+        }
         cb(null, configs_1.AppConfig.ChartsDataPath);
     },
     filename: (req, file, cb) => {

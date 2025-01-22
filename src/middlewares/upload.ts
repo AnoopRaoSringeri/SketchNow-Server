@@ -1,12 +1,16 @@
-import multer from "multer";
-import { AppConfig } from "../configs";
-import path from "path";
 import fs from "fs";
 import { ObjectId } from "mongodb";
+import multer from "multer";
+import path from "path";
+
+import { AppConfig } from "../configs";
 
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    if (!fs.existsSync(AppConfig.ChartsDataPath)) {
+      fs.mkdirSync(AppConfig.ChartsDataPath);
+    }
     cb(null, AppConfig.ChartsDataPath);
   },
   filename: (req, file, cb) => {
