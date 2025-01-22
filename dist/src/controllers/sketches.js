@@ -7,6 +7,8 @@ exports.Update = exports.GetImageData = exports.GetById = exports.Get = exports.
 const session_1 = __importDefault(require("../middlewares/session"));
 const sketch_model_1 = require("../models/sketch-model");
 const redis_1 = require("../services/redis");
+const fs_1 = __importDefault(require("fs"));
+const configs_1 = require("../configs");
 const Get = async (req, res) => {
     try {
         const session = await (0, session_1.default)(req);
@@ -81,6 +83,11 @@ const Update = async (req, res) => {
             metadata,
         });
         await redis_1.RedisClient.set(id, dataUrl !== null && dataUrl !== void 0 ? dataUrl : "");
+        metadata.deletedSources.forEach((deletedSource) => {
+            fs_1.default.unlink(`${configs_1.AppConfig.ChartsDataPath}/${deletedSource}.csv`, () => {
+                //
+            });
+        });
         res.status(200).json(true);
     }
     catch (error) {
@@ -91,6 +98,17 @@ exports.Update = Update;
 const Delete = async (req, res) => {
     try {
         const { id } = req.params;
+        const sketch = await sketch_model_1.Sketch.findById(req.params.id);
+        sketch === null || sketch === void 0 ? void 0 : sketch.metadata.elements.forEach((data) => {
+            if (data.type == "chart") {
+                const { metadata: chartMetadata } = data.value;
+                if (chartMetadata.source.type == "File") {
+                    fs_1.default.unlink(`${configs_1.AppConfig.ChartsDataPath}/${chartMetadata.source.id}.csv`, () => {
+                        //
+                    });
+                }
+            }
+        });
         await sketch_model_1.Sketch.deleteOne({ _id: id });
         res.status(200).json(true);
     }

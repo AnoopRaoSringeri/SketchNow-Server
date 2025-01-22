@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResetPasswordPage = exports.ResetPassword = exports.Register = exports.Public = exports.Logout = exports.Login = exports.IsSessionvValid = exports.ForgotPassword = void 0;
+exports.ResetPasswordPage = exports.ResetPassword = exports.Register = exports.Public = exports.Logout = exports.Login = exports.IsSessionValid = exports.ForgotPassword = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const crypto_1 = __importDefault(require("crypto"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -12,6 +12,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const cookie_1 = __importDefault(require("../configs/cookie"));
 const mailer_1 = require("../middlewares/mailer");
 const user_model_1 = require("../models/user-model");
+const session_1 = __importDefault(require("../middlewares/session"));
 dotenv_1.default.config();
 const SECRET = (_a = process.env.SECRET_JWT_CODE) !== null && _a !== void 0 ? _a : "";
 const Public = async (req, res) => {
@@ -27,7 +28,7 @@ const Register = async (req, res) => {
             password,
             username,
         });
-        (0, mailer_1.sendEmailAsTemplate)({
+        await (0, mailer_1.sendEmailAsTemplate)({
             to: email,
             subject: "Welcome to SketchNow",
             template: "welcome",
@@ -153,12 +154,13 @@ const ResetPassword = async (req, res) => {
     }
 };
 exports.ResetPassword = ResetPassword;
-const IsSessionvValid = async (req, res) => {
+const IsSessionValid = async (req, res) => {
     try {
-        res.json(true);
+        const session = await (0, session_1.default)(req);
+        res.json(session);
     }
     catch (error) {
         res.status(400).json({ error });
     }
 };
-exports.IsSessionvValid = IsSessionvValid;
+exports.IsSessionValid = IsSessionValid;
