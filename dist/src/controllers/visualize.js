@@ -3,13 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateData = exports.Upload = exports.GetData = void 0;
+exports.Upload = exports.UpdateData = exports.GetData = void 0;
 const csv_parse_1 = require("csv-parse");
+const csv_stringify_1 = require("csv-stringify");
 const fs_1 = __importDefault(require("fs"));
 const promises_1 = require("stream/promises");
-const data_processor_1 = require("../utils/data-processor");
 const configs_1 = require("../configs");
-const csv_stringify_1 = require("csv-stringify");
+const data_processor_1 = require("../utils/data-processor");
 const Upload = async (req, res) => {
     const { id } = req.body;
     // Parse the CSV content

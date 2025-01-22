@@ -1,15 +1,16 @@
 import { parse } from "csv-parse";
+import { stringify } from "csv-stringify";
 import { Request, Response } from "express";
 import fs from "fs";
-import { finished, pipeline } from "stream/promises";
+import { finished } from "stream/promises";
+
+import { AppConfig } from "../configs";
 import {
   ChartDataRequest,
   ChartDataUpdateRequest,
   RowData,
 } from "../models/helper-models/visualize";
 import { GetChartData } from "../utils/data-processor";
-import { AppConfig } from "../configs";
-import { stringify } from "csv-stringify";
 
 const Upload = async (req: Request, res: Response) => {
   const { id } = req.body;
@@ -157,4 +158,4 @@ const GetData = async (
   }
 };
 
-export { GetData, Upload, UpdateData };
+export { GetData, UpdateData, Upload };
