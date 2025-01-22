@@ -42,12 +42,12 @@ const start = async () => {
     );
     await RedisClient.connect();
 
-    https.createServer(serverOptions, app).listen(port, () => {
-      console.log(`Server started on port ${port}`);
-    });
-    // app.listen(port, () => {
-    //   console.log(`App is Listening on PORT ${port}`);
+    // https.createServer(serverOptions, app).listen(port, () => {
+    //   console.log(`Server started on port ${port}`);
     // });
+    app.listen(port, () => {
+      console.log(`App is Listening on PORT ${port}`);
+    });
   } catch (error) {
     console.error(error);
     process.exit(1);
