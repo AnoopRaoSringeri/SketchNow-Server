@@ -18,13 +18,15 @@ const storage = multer_1.default.diskStorage({
         cb(null, configs_1.AppConfig.ChartsDataPath);
     },
     filename: (req, file, cb) => {
-        const filePath = path_1.default.join(`${configs_1.AppConfig.ChartsDataPath}/${req.body.id}.csv`);
+        // const extension = path.extname(file.originalname);
+        const extension = ".csv";
+        const filePath = path_1.default.join(`${configs_1.AppConfig.ChartsDataPath}/${req.body.id}${extension}`);
         if (req.body.id != null && fs_1.default.existsSync(filePath)) {
-            cb(null, `${req.body.id}-tmp.csv`);
+            cb(null, `${req.body.id}-tmp${extension}`);
         }
         else {
             req.body.id = new mongodb_1.ObjectId().toString("hex");
-            cb(null, `${req.body.id}.csv`);
+            cb(null, `${req.body.id}${extension}`);
         }
     },
 });

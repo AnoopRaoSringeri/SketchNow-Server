@@ -14,14 +14,16 @@ const storage = multer.diskStorage({
     cb(null, AppConfig.ChartsDataPath);
   },
   filename: (req, file, cb) => {
+    // const extension = path.extname(file.originalname);
+    const extension = ".csv";
     const filePath = path.join(
-      `${AppConfig.ChartsDataPath}/${req.body.id}.csv`,
+      `${AppConfig.ChartsDataPath}/${req.body.id}${extension}`,
     );
     if (req.body.id != null && fs.existsSync(filePath)) {
-      cb(null, `${req.body.id}-tmp.csv`);
+      cb(null, `${req.body.id}-tmp${extension}`);
     } else {
       req.body.id = new ObjectId().toString("hex");
-      cb(null, `${req.body.id}.csv`);
+      cb(null, `${req.body.id}${extension}`);
     }
   },
 });

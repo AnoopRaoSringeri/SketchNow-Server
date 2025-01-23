@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -8,7 +7,7 @@ import https from "https";
 import mongoose from "mongoose";
 import path from "path";
 
-import { corsOptions, serverOptions } from "./configs";
+import { AppConfig, corsOptions, serverOptions } from "./configs";
 import isLoggedIn from "./middlewares/login";
 import { authRouter, sketchRouter } from "./routes/v1";
 import uploadRouter from "./routes/v1/visualize";
@@ -23,7 +22,6 @@ app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.set("view engine", "html");
-// hbs.registerPartials(path.join(__dirname, "src/views"));
 app.set("views", path.join(__dirname, "views"));
 app.engine("html", hbs.__express);
 
@@ -42,12 +40,15 @@ const start = async () => {
     );
     await RedisClient.connect();
 
-    // https.createServer(serverOptions, app).listen(port, () => {
-    //   console.log(`Server started on port ${port}`);
-    // });
-    app.listen(port, () => {
-      console.log(`App is Listening on PORT ${port}`);
-    });
+    if (AppConfig.IsDevelopment()) {
+      https.createServer(serverOptions, app).listen(port, () => {
+        console.log(`Server started on port ${port}`);
+      });
+    } else {
+      app.listen(port, () => {
+        console.log(`App is Listening on PORT ${port}`);
+      });
+    }
   } catch (error) {
     console.error(error);
     process.exit(1);

@@ -1,5 +1,20 @@
-import json from "../../appsettings.json";
+import dotenv from "dotenv";
 
-export const AppConfig: {
+import dev from "../../appsettings.developmnet.json";
+import prod from "../../appsettings.json";
+
+dotenv.config();
+
+type ConfigType = {
   ChartsDataPath: string;
-} = json;
+};
+
+const Config: ConfigType = process.env.NODE_ENV == "development" ? dev : prod;
+
+export class AppConfig {
+  static ChartsDataPath = Config.ChartsDataPath;
+
+  static IsDevelopment() {
+    return process.env.NODE_ENV == "development";
+  }
+}
