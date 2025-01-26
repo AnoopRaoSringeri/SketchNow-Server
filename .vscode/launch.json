@@ -5,13 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Attach to Process",
       "type": "node",
-      "request": "launch",
-      "name": "Launch Server",
-      "skipFiles": ["<node_internals>/**"],
+      "protocol": "inspector",
+      "request": "attach",
+      "stopOnEntry": false,
       "preLaunchTask": "run server",
-      "program": "${workspaceFolder}\\src\\index.ts",
-      "outFiles": ["${workspaceFolder}/**/*.js"]
+      "port": 8000,
+      "localRoot": "${workspaceRoot}/src",
+      "remoteRoot": "C:My-ProjectsAppsSketchNow-Server",
+      "sourceMaps": true
     },
     {
       "type": "node",

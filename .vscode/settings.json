@@ -17,5 +17,10 @@
   },
   "editor.quickSuggestions": {
     "strings": "on"
-  }
+  },
+  "debug.toolBarLocation": "docked",
+  "debug.allowBreakpointsEverywhere": true,
+  "debug.terminal.clearBeforeReusing": true,
+  "debug.showInStatusBar": "always",
+  "debug.hideLauncherWhileDebugging": false
 }

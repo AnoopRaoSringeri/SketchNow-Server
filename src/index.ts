@@ -54,5 +54,9 @@ const start = async () => {
     process.exit(1);
   }
 };
-
-start();
+try {
+  start();
+} catch (e) {
+  console.error(e, "Restarting...");
+  start();
+}
