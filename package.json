@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.ts",
     "start": "node ./dist/src/index.js",
-    "build": "yarn add && npx tsc && ls dist",
+    "build": "yarn add npx tsc && ls dist",
     "buildlocal": "npx tsc "
   },
   "dependencies": {
