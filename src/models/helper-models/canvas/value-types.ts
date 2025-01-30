@@ -1,4 +1,4 @@
-import { ColumnConfig } from "./types";
+import { ColumnConfig } from "../visualize";
 
 export type SingleSelectValue = { t: "s"; v: string };
 

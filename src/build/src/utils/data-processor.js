@@ -4,23 +4,24 @@ exports.GetChartData = void 0;
 function GetChartData(records, dimensions, measures) {
     const groupedData = records.reduce((acc, curr) => {
         const key = dimensions.map((d) => curr[d.name]).join("-");
-        if (!acc[key]) {
+        if (acc[key] == null) {
             const obj = {};
             dimensions.forEach((d) => {
-                var _a;
-                obj[d.name] = (_a = curr[d.name]) === null || _a === void 0 ? void 0 : _a.toString();
+                var _a, _b;
+                obj[d.name] = (_b = (_a = curr[d.name]) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : null;
             });
             measures.forEach((d) => {
-                var _a;
-                obj[d.name] = parseFloat((_a = curr[d.name]) === null || _a === void 0 ? void 0 : _a.toString());
+                obj[d.name] = curr[d.name]
+                    ? parseFloat(curr[d.name].toString())
+                    : null;
             });
             acc[key] = obj;
         }
         else {
             measures.forEach((d) => {
-                var _a;
                 acc[key][d.name] =
-                    Number(acc[key][d.name]) + parseFloat((_a = curr[d.name]) === null || _a === void 0 ? void 0 : _a.toString());
+                    Number(acc[key][d.name]) +
+                        (curr[d.name] ? parseFloat(curr[d.name].toString()) : 0);
             });
         }
         return acc;

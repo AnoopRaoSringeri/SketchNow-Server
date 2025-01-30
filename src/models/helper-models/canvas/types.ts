@@ -7,13 +7,6 @@ export type EditorType =
   | "ColumnSelect"
   | "MultiColumnSelect";
 
-export type ColumnType = "string" | "number" | "date";
-
-export type ColumnConfig = {
-  name: string;
-  type: ColumnType;
-};
-
 export type ChartConfigMetadata = {
   measures:
     | {

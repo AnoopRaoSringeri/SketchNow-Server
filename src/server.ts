@@ -11,6 +11,7 @@ import { AppConfig, corsOptions, serverOptions } from "./configs";
 import isLoggedIn from "./middlewares/login";
 import { authRouter, sketchRouter } from "./routes/v1";
 import uploadRouter from "./routes/v1/visualize";
+import { DuckDBService } from "./services/db";
 import { RedisClient } from "./services/redis";
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use("/", uploadRouter);
 
 const start = async () => {
   try {
+    await DuckDBService.init();
     await mongoose.connect(
       `mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`,
     );

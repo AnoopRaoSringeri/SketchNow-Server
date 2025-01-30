@@ -7,7 +7,6 @@ exports.upload = void 0;
 const fs_1 = __importDefault(require("fs"));
 const mongodb_1 = require("mongodb");
 const multer_1 = __importDefault(require("multer"));
-const path_1 = __importDefault(require("path"));
 const configs_1 = require("../configs");
 // Set up storage for uploaded files
 const storage = multer_1.default.diskStorage({
@@ -18,16 +17,11 @@ const storage = multer_1.default.diskStorage({
         cb(null, configs_1.AppConfig.ChartsDataPath);
     },
     filename: (req, file, cb) => {
-        // const extension = path.extname(file.originalname);
         const extension = ".csv";
-        const filePath = path_1.default.join(`${configs_1.AppConfig.ChartsDataPath}/${req.body.id}${extension}`);
-        if (req.body.id != null && fs_1.default.existsSync(filePath)) {
-            cb(null, `${req.body.id}-tmp${extension}`);
-        }
-        else {
+        if (req.body.id == null) {
             req.body.id = new mongodb_1.ObjectId().toString("hex");
-            cb(null, `${req.body.id}${extension}`);
         }
+        cb(null, `${req.body.id}-tmp${extension}`);
     },
 });
 // Create the multer instance

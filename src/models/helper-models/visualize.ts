@@ -1,6 +1,15 @@
-export type ColumnConfig = { name: string; type: string };
+import { Json } from "@duckdb/node-api";
 
-export type RowData = Record<string, string | number>;
+export type ColumnType = "string" | "number" | "date";
+
+export type ColumnConfig = {
+  name: string;
+  type: ColumnType;
+};
+
+export type RowData = Record<string, string | number | null>;
+
+export type DbRowData = Record<string, Json>;
 
 export type ChartDataRequest = {
   id: string;

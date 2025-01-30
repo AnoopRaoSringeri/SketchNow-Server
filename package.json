@@ -1,17 +1,18 @@
 {
   "name": "skecthnow",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "author": "Anoop",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./src/index.ts",
-    "start": "node ./dist/src/index.js",
-    "start-prod": "node ./src/build/src/index.js",
+    "dev": "nodemon ./src/server.ts",
+    "start": "node ./dist/src/server.js",
+    "start-prod": "node ./src/build/src/serer.js",
     "build": "yarn add npx tsc",
     "buildlocal": "npx tsc "
   },
   "dependencies": {
+    "@duckdb/node-api": "^1.1.3-alpha.10",
     "@types/express-session": "^1.18.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
@@ -19,6 +20,7 @@
     "csv-parse": "^5.5.6",
     "csv-stringify": "^6.5.2",
     "dotenv": "^16.3.1",
+    "duckdb": "^1.1.3",
     "express": "^4.19.2",
     "express-jwt": "^8.4.1",
     "express-session": "^1.18.0",

@@ -1,27 +1,34 @@
-import { ColumnConfig, RowData } from "../models/helper-models/visualize";
+import {
+  ColumnConfig,
+  DbRowData,
+  RowData,
+} from "../models/helper-models/visualize";
 
 export function GetChartData(
-  records: RowData[],
+  records: DbRowData[],
   dimensions: ColumnConfig[],
   measures: ColumnConfig[],
 ): RowData[] {
   const groupedData = records.reduce(
-    (acc, curr) => {
+    (acc: { [key: string]: RowData }, curr) => {
       const key = dimensions.map((d) => curr[d.name]).join("-");
 
-      if (!acc[key]) {
-        const obj: { [key: string]: string | number } = {};
+      if (acc[key] == null) {
+        const obj: RowData = {};
         dimensions.forEach((d) => {
-          obj[d.name] = curr[d.name]?.toString();
+          obj[d.name] = curr[d.name]?.toString() ?? null;
         });
         measures.forEach((d) => {
-          obj[d.name] = parseFloat(curr[d.name]?.toString());
+          obj[d.name] = curr[d.name]
+            ? parseFloat(curr[d.name]!.toString())
+            : null;
         });
         acc[key] = obj;
       } else {
         measures.forEach((d) => {
           acc[key][d.name] =
-            Number(acc[key][d.name]) + parseFloat(curr[d.name]?.toString());
+            Number(acc[key][d.name]) +
+            (curr[d.name] ? parseFloat(curr[d.name]!.toString()) : 0);
         });
       }
 
