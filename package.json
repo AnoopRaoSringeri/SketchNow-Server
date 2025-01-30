@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon ./src/server.ts",
     "start": "node ./dist/src/server.js",
-    "start-prod": "node ./src/build/src/serer.js",
+    "start-prod": "node ./src/build/src/server.js",
     "build": "yarn add npx tsc",
     "buildlocal": "npx tsc "
   },
