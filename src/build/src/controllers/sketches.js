@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Update = exports.GetImageData = exports.GetById = exports.Get = exports.Delete = exports.Create = void 0;
+const fs_1 = __importDefault(require("fs"));
+const configs_1 = require("../configs");
 const session_1 = __importDefault(require("../middlewares/session"));
 const sketch_model_1 = require("../models/sketch-model");
 const redis_1 = require("../services/redis");
-const fs_1 = __importDefault(require("fs"));
-const configs_1 = require("../configs");
 const Get = async (req, res) => {
     try {
         const session = await (0, session_1.default)(req);

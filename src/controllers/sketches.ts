@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import fs from "fs";
 
+import { AppConfig } from "../configs";
 import getCurrentSession from "../middlewares/session";
 import {
   Sketch,
@@ -7,8 +9,6 @@ import {
   SketchUpdateRequest,
 } from "../models/sketch-model";
 import { RedisClient } from "../services/redis";
-import fs from "fs";
-import { AppConfig } from "../configs";
 
 const Get = async (req: Request, res: Response) => {
   try {

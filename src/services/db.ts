@@ -4,6 +4,7 @@ import {
   DuckDBTypeId,
   Json,
 } from "@duckdb/node-api";
+import fs from "fs";
 import path from "path";
 
 import { AppConfig } from "../configs";
@@ -38,6 +39,9 @@ export class DuckDBService {
   }
 
   static async create() {
+    if (!fs.existsSync(AppConfig.ChartsDataPath)) {
+      fs.mkdirSync(AppConfig.ChartsDataPath);
+    }
     duckdb = await DuckDBInstance.create(DuckDBService.dbPath);
   }
 

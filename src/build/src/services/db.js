@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DuckDBService = void 0;
 const node_api_1 = require("@duckdb/node-api");
+const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const configs_1 = require("../configs");
 let duckdb = null;
@@ -28,6 +29,9 @@ class DuckDBService {
         }
     }
     static async create() {
+        if (!fs_1.default.existsSync(configs_1.AppConfig.ChartsDataPath)) {
+            fs_1.default.mkdirSync(configs_1.AppConfig.ChartsDataPath);
+        }
         duckdb = await node_api_1.DuckDBInstance.create(DuckDBService.dbPath);
     }
     static async connect() {
