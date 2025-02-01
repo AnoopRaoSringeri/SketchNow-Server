@@ -135,7 +135,9 @@
       ],
       "no-unused-vars": [
         "warn",
-        {}
+        {
+          "args": "none"
+        }
       ],
       "import/prefer-default-export": [
         "off",

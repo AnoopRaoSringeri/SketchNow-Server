@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import path from "path";
 
 import { AppConfig, corsOptions, serverOptions } from "./configs";
+import { errorHandler } from "./middlewares/error-handler";
 import isLoggedIn from "./middlewares/login";
 import { authRouter, sketchRouter } from "./routes/v1";
 import uploadRouter from "./routes/v1/visualize";
@@ -22,6 +23,8 @@ app.use(express.json({ limit: "100mb" }));
 app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(errorHandler);
+
 app.set("view engine", "html");
 app.set("views", path.join(__dirname, "views"));
 app.engine("html", hbs.__express);

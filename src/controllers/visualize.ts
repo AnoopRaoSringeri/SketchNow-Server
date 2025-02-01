@@ -8,8 +8,9 @@ import {
 } from "../models/helper-models/visualize";
 import { DuckDBService } from "../services/db";
 import { GetChartData } from "../utils/data-processor";
+import { tryCatch } from "../utils/try-catch";
 
-const Upload = async (req: Request, res: Response) => {
+const Upload = tryCatch(async (req: Request, res: Response) => {
   const { id } = req.body;
 
   await DuckDBService.createTableFromCsv(id);
@@ -27,15 +28,16 @@ const Upload = async (req: Request, res: Response) => {
     columns,
     id,
   });
-};
+});
 
-const UpdateData = async (
-  req: Request<{}, {}, ChartDataUpdateRequest, { isFirstRowHeader: string }>,
-  res: Response,
-) => {
-  try {
+const UpdateData = tryCatch(
+  async (
+    req: Request<{}, {}, ChartDataUpdateRequest, { isFirstRowHeader: string }>,
+    res: Response,
+  ) => {
     const { id, mode } = req.body;
     const { isFirstRowHeader } = req.query;
+
     if (mode === "truncate") {
       await DuckDBService.truncateTable(id);
     }
@@ -51,16 +53,11 @@ const UpdateData = async (
       data: tableData,
       id,
     });
-  } catch (error) {
-    res.json({ error });
-  }
-};
+  },
+);
 
-const GetData = async (
-  req: Request<{}, {}, ChartDataRequest>,
-  res: Response,
-) => {
-  try {
+const GetData = tryCatch(
+  async (req: Request<{}, {}, ChartDataRequest>, res: Response) => {
     const { id, measures, dimensions, columns } = req.body;
 
     const result = await DuckDBService.executeQuery(
@@ -72,9 +69,7 @@ const GetData = async (
     res.json({
       data: GetChartData(tableData, dimensions, measures),
     });
-  } catch (error) {
-    res.json({ error });
-  }
-};
+  },
+);
 
 export { GetData, UpdateData, Upload };
