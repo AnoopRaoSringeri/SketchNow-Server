@@ -7,4 +7,5 @@ const uploadRouter = (0, express_1.Router)();
 uploadRouter.post("/upload", upload_1.upload.single("file"), visualize_1.Upload);
 uploadRouter.post("/update", upload_1.upload.single("file"), visualize_1.UpdateData);
 uploadRouter.post("/data", visualize_1.GetData);
+uploadRouter.get("/sourceData/:sourceId", visualize_1.GetSourceData);
 exports.default = uploadRouter;

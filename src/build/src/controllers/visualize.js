@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Upload = exports.UpdateData = exports.GetData = void 0;
+exports.Upload = exports.UpdateData = exports.GetSourceData = exports.GetData = void 0;
 const fs_1 = __importDefault(require("fs"));
 const configs_1 = require("../configs");
 const db_1 = require("../services/db");
@@ -52,3 +52,10 @@ const GetData = (0, try_catch_1.tryCatch)(async (req, res) => {
     });
 });
 exports.GetData = GetData;
+const GetSourceData = (0, try_catch_1.tryCatch)(async (req, res) => {
+    const id = req.params.sourceId;
+    const result = await db_1.DuckDBService.executeQuery(`SELECT * FROM '${id}';`);
+    const tableData = await result.getRowObjectsJson();
+    res.json(tableData);
+});
+exports.GetSourceData = GetSourceData;

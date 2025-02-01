@@ -72,4 +72,18 @@ const GetData = tryCatch(
   },
 );
 
-export { GetData, UpdateData, Upload };
+const GetSourceData = tryCatch(
+  async (
+    req: Request<{ sourceId: string }, {}, ChartDataRequest>,
+    res: Response,
+  ) => {
+    const id = req.params.sourceId;
+    const result = await DuckDBService.executeQuery(`SELECT * FROM '${id}';`);
+
+    const tableData = await result.getRowObjectsJson();
+
+    res.json(tableData);
+  },
+);
+
+export { GetData, GetSourceData, UpdateData, Upload };

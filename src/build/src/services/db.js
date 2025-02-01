@@ -40,22 +40,21 @@ class DuckDBService {
         }
         return duckdb.connect();
     }
-    static async executeQuery(query) {
-        if (!duckdb) {
-            throw new Error("DuckDB is not initialized");
-        }
+    static async executeQuery(query, commit) {
         const connection = await DuckDBService.connect();
         const queryResult = await connection.run(query);
-        await connection.run("CHECKPOINT");
+        if (commit) {
+            await connection.run("CHECKPOINT");
+        }
         connection.close();
         return queryResult;
     }
     static async createTableFromCsv(tableName) {
         const csvPath = DuckDBService.getDataPath(tableName);
-        await DuckDBService.executeQuery(`CREATE TABLE '${tableName}' AS FROM '${csvPath}'`);
+        await DuckDBService.executeQuery(`CREATE TABLE '${tableName}' AS FROM '${csvPath}'`, true);
     }
     static async truncateTable(tableName) {
-        await DuckDBService.executeQuery(`TRUNCATE '${tableName}'`);
+        await DuckDBService.executeQuery(`TRUNCATE '${tableName}'`, true);
     }
     static async getColumnSchema(tableName) {
         var _a, _b;
@@ -72,11 +71,11 @@ class DuckDBService {
     }
     static async insertDataFromCsv(tableName, withHeder) {
         const csvPath = DuckDBService.getDataPath(tableName);
-        await DuckDBService.executeQuery(`COPY '${tableName}' FROM '${csvPath}' (HEADER ${withHeder ? "TRUE" : "FALSE"})`);
+        await DuckDBService.executeQuery(`COPY '${tableName}' FROM '${csvPath}' (HEADER ${withHeder ? "TRUE" : "FALSE"})`, true);
     }
     static async upsertDataFromCsv(tableName, columns) {
         const csvPath = DuckDBService.getDataPath(tableName);
-        await DuckDBService.executeQuery(`COPY '${tableName}' FROM '${csvPath}'`);
+        await DuckDBService.executeQuery(`COPY '${tableName}' FROM '${csvPath}'`, true);
     }
     // #region  Helper functions
     static getColumnType(type) {
