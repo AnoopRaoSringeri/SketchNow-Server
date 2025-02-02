@@ -48,15 +48,15 @@ const start = async () => {
       https.createServer(serverOptions, app).listen(port, () => {
         console.log(`Server started on port ${port}`);
       });
+    } else {
+      app.listen(port, () => {
+        console.log(`App is Listening on PORT ${port}`);
+      });
       await RedisClient.connect();
       const res = await DuckDBService.executeQuery("SHOW TABLES");
       const data = await res.getRowObjectsJson();
 
       console.log(data);
-    } else {
-      app.listen(port, () => {
-        console.log(`App is Listening on PORT ${port}`);
-      });
     }
   } catch (error) {
     console.error(error);

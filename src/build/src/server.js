@@ -41,15 +41,15 @@ const start = async () => {
             https_1.default.createServer(configs_1.serverOptions, app).listen(port, () => {
                 console.log(`Server started on port ${port}`);
             });
-            await redis_1.RedisClient.connect();
-            const res = await db_1.DuckDBService.executeQuery("SHOW TABLES");
-            const data = await res.getRowObjectsJson();
-            console.log(data);
         }
         else {
             app.listen(port, () => {
                 console.log(`App is Listening on PORT ${port}`);
             });
+            await redis_1.RedisClient.connect();
+            const res = await db_1.DuckDBService.executeQuery("SHOW TABLES");
+            const data = await res.getRowObjectsJson();
+            console.log(data);
         }
     }
     catch (error) {
