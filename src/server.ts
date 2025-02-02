@@ -43,12 +43,16 @@ const start = async () => {
     await mongoose.connect(
       `mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`,
     );
-    await RedisClient.connect();
 
     if (AppConfig.IsDevelopment()) {
       https.createServer(serverOptions, app).listen(port, () => {
         console.log(`Server started on port ${port}`);
       });
+      await RedisClient.connect();
+      const res = await DuckDBService.executeQuery("SHOW TABLES");
+      const data = await res.getRowObjectsJson();
+
+      console.log(data);
     } else {
       app.listen(port, () => {
         console.log(`App is Listening on PORT ${port}`);
