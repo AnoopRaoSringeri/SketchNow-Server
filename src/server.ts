@@ -40,10 +40,17 @@ app.use("/", uploadRouter);
 const start = async () => {
   try {
     await DuckDBService.init();
+    console.log("Connecting to mongodb");
     await mongoose.connect(
-      `mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`,
+      `mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/?retryWrites=true&w=majority&appName=${process.env.DATABASE}`,
     );
+    console.log("Connected to mongodb");
+
+    console.log("Connecting to redis");
     await RedisClient.connect();
+    console.log("Connected to redis");
+
+    console.log(`\n${AppConfig.Environment()}`);
 
     if (AppConfig.IsDevelopment()) {
       https.createServer(serverOptions, app).listen(port, () => {

@@ -36,8 +36,13 @@ app.use("/", visualize_1.default);
 const start = async () => {
     try {
         await db_1.DuckDBService.init();
-        await mongoose_1.default.connect(`mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`);
+        console.log("Connecting to mongodb");
+        await mongoose_1.default.connect(`mongodb+srv://SketchNow:${process.env.MONGO_PASSWORD}@phoenix.jhaaso5.mongodb.net/?retryWrites=true&w=majority&appName=${process.env.DATABASE}`);
+        console.log("Connected to mongodb");
+        console.log("Connecting to redis");
         await redis_1.RedisClient.connect();
+        console.log("Connected to redis");
+        console.log(`\n${configs_1.AppConfig.Environment()}`);
         if (configs_1.AppConfig.IsDevelopment()) {
             https_1.default.createServer(configs_1.serverOptions, app).listen(port, () => {
                 console.log(`Server started on port ${port}`);

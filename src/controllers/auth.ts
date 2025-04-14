@@ -15,6 +15,7 @@ dotenv.config();
 const SECRET = process.env.SECRET_JWT_CODE ?? "";
 
 const Public = async (req: Request<{}, {}, UserType>, res: Response) => {
+  console.log("This is a public url");
   res.send("Hiii");
 };
 
