@@ -17,6 +17,7 @@ const try_catch_1 = require("../utils/try-catch");
 dotenv_1.default.config();
 const SECRET = (_a = process.env.SECRET_JWT_CODE) !== null && _a !== void 0 ? _a : "";
 const Public = async (req, res) => {
+    console.log("This is a public url");
     res.send("Hiii");
 };
 exports.Public = Public;
