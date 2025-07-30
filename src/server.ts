@@ -1,3 +1,4 @@
+import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -24,18 +25,19 @@ app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(errorHandler);
+app.use(compression());
 
 app.set("view engine", "html");
 app.set("views", path.join(__dirname, "views"));
 app.engine("html", hbs.__express);
 
-app.use("/", authRouter);
+app.use("/api", authRouter);
 
 app.use(isLoggedIn);
 
-app.use("/", sketchRouter);
+app.use("/api", sketchRouter);
 
-app.use("/", uploadRouter);
+app.use("/api", uploadRouter);
 
 const start = async () => {
   try {

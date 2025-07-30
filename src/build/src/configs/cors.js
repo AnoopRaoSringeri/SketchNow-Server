@@ -6,6 +6,7 @@ const corsOptions = {
         "https://localhost:3000",
         "https://localhost:4200",
         "http://localhost:4200",
+        "http://localhost:8000",
     ],
     credentials: true,
 };

@@ -58,7 +58,7 @@ export class DuckDBService {
     if (commit) {
       await connection.run("CHECKPOINT");
     }
-    connection.close();
+    connection.closeSync();
     return queryResult;
   }
 

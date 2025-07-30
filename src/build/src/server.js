@@ -29,10 +29,10 @@ app.use(error_handler_1.errorHandler);
 app.set("view engine", "html");
 app.set("views", path_1.default.join(__dirname, "views"));
 app.engine("html", hbs_1.default.__express);
-app.use("/", v1_1.authRouter);
+app.use("/api", v1_1.authRouter);
 app.use(login_1.default);
-app.use("/", v1_1.sketchRouter);
-app.use("/", visualize_1.default);
+app.use("/api", v1_1.sketchRouter);
+app.use("/api", visualize_1.default);
 const start = async () => {
     try {
         await db_1.DuckDBService.init();

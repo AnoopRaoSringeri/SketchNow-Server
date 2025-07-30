@@ -21,48 +21,48 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@duckdb/node-api@^1.1.3-alpha.10":
-  version "1.1.3-alpha.10"
-  resolved "https://registry.yarnpkg.com/@duckdb/node-api/-/node-api-1.1.3-alpha.10.tgz#463a88ecfb478829d9991952b5a8fedc15c3e0b1"
-  integrity sha512-M28eiCIpLQWej1kt6h9A4culiM+N47H2HAH/dhULMgaI3vE5IpAGXIahkrcliseJW/pz4ve1rq4KJ6JFS/3vcQ==
+"@duckdb/node-api@^1.2.2-alpha.18":
+  version "1.2.2-alpha.18"
+  resolved "https://registry.yarnpkg.com/@duckdb/node-api/-/node-api-1.2.2-alpha.18.tgz#5d780d78e129b7a46c72a511aa68d406e5607fad"
+  integrity sha512-9ke/DF7ZZzj6pzlswF34DDytYUn8fhAe4JdZGEvXpNJxnccf1l1Aisqg0fUtOxZkYrO4ALgSZHR0i3i4RLndUQ==
   dependencies:
-    "@duckdb/node-bindings" "1.1.3-alpha.10"
+    "@duckdb/node-bindings" "1.2.2-alpha.18"
 
-"@duckdb/node-bindings-darwin-arm64@1.1.3-alpha.10":
-  version "1.1.3-alpha.10"
-  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-darwin-arm64/-/node-bindings-darwin-arm64-1.1.3-alpha.10.tgz#8450c36a3b523790bd67bbf436c204e8158af8e0"
-  integrity sha512-gNLfDZAoXUDSD4B/qOQTyPHmmjdPVXzEf3D4uEWsNuJQ9fLMzNY4gAkE8lyXWhMYJwJQSTtkXU3pQ5airPn1OA==
+"@duckdb/node-bindings-darwin-arm64@1.2.2-alpha.18":
+  version "1.2.2-alpha.18"
+  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-darwin-arm64/-/node-bindings-darwin-arm64-1.2.2-alpha.18.tgz#14d34a78972da89f870b0f42cc3d2d735fcc22e9"
+  integrity sha512-xNzfi/+swRiA1Rye25f33tKXmFYbyQcslN6bpB3nR/Wkiotjlu3dAc5wvTpUDiiJwNeZRTRdJM/OXtUO0YaAfw==
 
-"@duckdb/node-bindings-darwin-x64@1.1.3-alpha.10":
-  version "1.1.3-alpha.10"
-  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-darwin-x64/-/node-bindings-darwin-x64-1.1.3-alpha.10.tgz#5fd51abc09d07c6807e4f622591b6773a0a3ad15"
-  integrity sha512-4Dlo99a3UnRd5Zl0ghJh1aZ6i9Khx/lIGEzZnajN+TvwI1n2+XXDo5ApEunU9AqvQofVzJKX+8T57mcOkF9uyA==
+"@duckdb/node-bindings-darwin-x64@1.2.2-alpha.18":
+  version "1.2.2-alpha.18"
+  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-darwin-x64/-/node-bindings-darwin-x64-1.2.2-alpha.18.tgz#a96eb50a670e2048f9c937be6b8a7bce0efd6510"
+  integrity sha512-9vXgAJ2LFKRa53E7RmvGdhWtisLLPKIpSzeE/L3X4aD5zv1V4YnhYHuMOTgxZguj+eOT1pvG99geH1WQb3DdNQ==
 
-"@duckdb/node-bindings-linux-arm64@1.1.3-alpha.10":
-  version "1.1.3-alpha.10"
-  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-linux-arm64/-/node-bindings-linux-arm64-1.1.3-alpha.10.tgz#17db0ddbc6081eada28cbef1bba0b256b4cc6b40"
-  integrity sha512-BDBDiuBR7dW+P/N5MugyURblkMaeqD/Fx6hJWcLCPptoayalvzr9x+ijgt04FUDkwOF1gDJigc8UMgiTVA+RhA==
+"@duckdb/node-bindings-linux-arm64@1.2.2-alpha.18":
+  version "1.2.2-alpha.18"
+  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-linux-arm64/-/node-bindings-linux-arm64-1.2.2-alpha.18.tgz#811e50c17cb8f17d29b46f19af03f93d9fc69953"
+  integrity sha512-WcgfkPDGRsMcKAVzDhL14BJB1lYD9YY7wEIoPdyXYwkK+c4WT7ublsx7diFqBk/jO0jFYTRmXIqpNyqGT0Lwjg==
 
-"@duckdb/node-bindings-linux-x64@1.1.3-alpha.10":
-  version "1.1.3-alpha.10"
-  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-linux-x64/-/node-bindings-linux-x64-1.1.3-alpha.10.tgz#8957ddcf5b57d01a41bc3a12d26af50ef398da8b"
-  integrity sha512-XuMKDGgx3bJ+rSYnkonP/TWk79rRYE0mbfPBDJSx2M2SjyqIVETJWT7mvtqUvsdyIxkYn2bWMOAUd3O+nEUeHQ==
+"@duckdb/node-bindings-linux-x64@1.2.2-alpha.18":
+  version "1.2.2-alpha.18"
+  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-linux-x64/-/node-bindings-linux-x64-1.2.2-alpha.18.tgz#da3937bb0fd4110b7892b2a18a0b0854ea78d456"
+  integrity sha512-dPqVJwpu9SmKxuw7ZfebUzOLBMrZz24UzFXuHX0uwSXZS1ndUuHnqk7SWGcWafNJeDlMKV//uMQke+MGXt2LmQ==
 
-"@duckdb/node-bindings-win32-x64@1.1.3-alpha.10":
-  version "1.1.3-alpha.10"
-  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-win32-x64/-/node-bindings-win32-x64-1.1.3-alpha.10.tgz#2ee320bbb3fde8921a4ca97484bdd910410cede1"
-  integrity sha512-JCCPPzil2JbK7my4ZPoKuJEYQs7ztsGSzGpj9XnJhKGltDXpZQBYjXd1RWKSb/ut6NwSwmdaBjjHP/+JkvE8SA==
+"@duckdb/node-bindings-win32-x64@1.2.2-alpha.18":
+  version "1.2.2-alpha.18"
+  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings-win32-x64/-/node-bindings-win32-x64-1.2.2-alpha.18.tgz#e1f690b26e1c6fa1d7d755449aae28888aa83ab3"
+  integrity sha512-0BSRNH3JbvHDYd2LM/25uQlSaXzeJaJvBCJQZoIXttY5vq6stLknfQ9zWADLa8jwFYU+p87Ajqg415zs4SfMFQ==
 
-"@duckdb/node-bindings@1.1.3-alpha.10":
-  version "1.1.3-alpha.10"
-  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings/-/node-bindings-1.1.3-alpha.10.tgz#bd8bf8e46099e1a184746d4c999decbc92175432"
-  integrity sha512-wivhuZTsVlhz5HHLzu4yPatDE/q4W3E+93pg6s7Oma7OoljKOlRWsn33YDdEPNo6NcnPx1MFtMTuz8kt8cp0SQ==
+"@duckdb/node-bindings@1.2.2-alpha.18":
+  version "1.2.2-alpha.18"
+  resolved "https://registry.yarnpkg.com/@duckdb/node-bindings/-/node-bindings-1.2.2-alpha.18.tgz#f44db8b38e6fa3d001fced81990f1f7f2b61e095"
+  integrity sha512-1O/yBDevwMNGlv559sn3myOds0lM0D4e8ilHsDzOs3rDnpzEdzK6aSTPVG8APjjFjPjk+pEzBxUse7UsP6objA==
   optionalDependencies:
-    "@duckdb/node-bindings-darwin-arm64" "1.1.3-alpha.10"
-    "@duckdb/node-bindings-darwin-x64" "1.1.3-alpha.10"
-    "@duckdb/node-bindings-linux-arm64" "1.1.3-alpha.10"
-    "@duckdb/node-bindings-linux-x64" "1.1.3-alpha.10"
-    "@duckdb/node-bindings-win32-x64" "1.1.3-alpha.10"
+    "@duckdb/node-bindings-darwin-arm64" "1.2.2-alpha.18"
+    "@duckdb/node-bindings-darwin-x64" "1.2.2-alpha.18"
+    "@duckdb/node-bindings-linux-arm64" "1.2.2-alpha.18"
+    "@duckdb/node-bindings-linux-x64" "1.2.2-alpha.18"
+    "@duckdb/node-bindings-win32-x64" "1.2.2-alpha.18"
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.4.0"
@@ -244,6 +244,13 @@
   dependencies:
     "@types/connect" "*"
     "@types/node" "*"
+
+"@types/compression@^1.7.5":
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/@types/compression/-/compression-1.7.5.tgz#0f80efef6eb031be57b12221c4ba6bc3577808f7"
+  integrity sha512-AAQvK5pxMpaT+nDvhHrsBhLSYG5yQdtkaJE1WYieSNY2mVFKAgmU4ks65rkZD5oqnGCFLyQpUr1CqI4DmUMyDg==
+  dependencies:
+    "@types/express" "*"
 
 "@types/connect@*":
   version "3.4.35"
@@ -963,6 +970,26 @@ common-tags@^1.4.0:
   version "1.8.2"
   resolved "https://registry.npmjs.org/common-tags/-/common-tags-1.8.2.tgz"
   integrity sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==
+
+compressible@~2.0.18:
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/compressible/-/compressible-2.0.18.tgz#af53cca6b070d4c3c0750fbd77286a6d7cc46fba"
+  integrity sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==
+  dependencies:
+    mime-db ">= 1.43.0 < 2"
+
+compression@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/compression/-/compression-1.8.0.tgz#09420efc96e11a0f44f3a558de59e321364180f7"
+  integrity sha512-k6WLKfunuqCYD3t6AsuPGvQWaKwuLLh2/xHNcX4qE+vIfDNXpSqnrhwA7O53R7WVQUnt8dVAIW+YHr7xTgOgGA==
+  dependencies:
+    bytes "3.1.2"
+    compressible "~2.0.18"
+    debug "2.6.9"
+    negotiator "~0.6.4"
+    on-headers "~1.0.2"
+    safe-buffer "5.2.1"
+    vary "~1.1.2"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -2544,6 +2571,11 @@ mime-db@1.52.0:
   resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz"
   integrity sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==
 
+"mime-db@>= 1.43.0 < 2":
+  version "1.54.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.54.0.tgz#cddb3ee4f9c64530dff640236661d42cb6a314f5"
+  integrity sha512-aU5EJuIN2WDemCcAp2vFBfp/m4EAhWJnUNSSw0ixs7/kXbd6Pg64EmwJkNdFhB8aWt1sH2CTXrLxo/iAGV3oPQ==
+
 mime-types@~2.1.24, mime-types@~2.1.34:
   version "2.1.35"
   resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz"
@@ -2675,6 +2707,11 @@ negotiator@0.6.3:
   version "0.6.3"
   resolved "https://registry.npmjs.org/negotiator/-/negotiator-0.6.3.tgz"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
+
+negotiator@~0.6.4:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.4.tgz#777948e2452651c570b712dd01c23e262713fff7"
+  integrity sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==
 
 neo-async@^2.6.0, neo-async@^2.6.2:
   version "2.6.2"

@@ -12,19 +12,15 @@ COPY yarn.lock ./
 # Install dependencies
 RUN yarn install
 
-# RUN yarn build
-
 # RUN apk add gcompat
 
 RUN mkdir -p /app/chart-data
 
-RUN mkdir -p /app/build
- 
 # Copy the rest of your application files
 COPY . .
  
 # Expose the port your app runs on
-EXPOSE 8000
+EXPOSE 3000
  
 # Define the command to run your app
 CMD ["yarn", "docker" ]
