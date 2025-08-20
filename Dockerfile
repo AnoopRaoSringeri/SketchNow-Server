@@ -1,5 +1,5 @@
 # Use the latest LTS version of Node.js
-FROM node:23-slim
+FROM node:20-bookworm-slim AS build
  
 # Set the working directory inside the container
 WORKDIR /app
