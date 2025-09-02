@@ -57,11 +57,15 @@ const UpdateData = tryCatch(
 );
 
 const GetData = tryCatch(
-  async (req: Request<{}, {}, ChartDataRequest>, res: Response) => {
+  async (
+    req: Request<{}, {}, ChartDataRequest, { page: number }>,
+    res: Response,
+  ) => {
     const { id, measures, dimensions, columns } = req.body;
-
+    const { page } = req.query;
+    const rowsPerPage = 100;
     const result = await DuckDBService.executeQuery(
-      `SELECT ${columns.map((c) => `"${c.name}"`).join(", ")} FROM '${id}';`,
+      `SELECT ${columns.map((c) => `"${c.name}"`).join(", ")} FROM '${id}' ${page ? `LIMIT ${page * rowsPerPage} ` : ""};`,
     );
 
     const tableData = await result.getRowObjectsJson();

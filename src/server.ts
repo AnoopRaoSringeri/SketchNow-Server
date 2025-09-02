@@ -64,6 +64,9 @@ const start = async () => {
       });
       const res = await DuckDBService.executeQuery("SHOW TABLES");
       const data = await res.getRowObjectsJson();
+      app.on("error", (err) => {
+        console.error("Server error:", err);
+      });
 
       console.log(data);
     }
