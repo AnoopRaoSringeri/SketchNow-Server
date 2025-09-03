@@ -4,7 +4,7 @@ exports.QueryHelper = void 0;
 const visualize_1 = require("../models/helper-models/visualize");
 class QueryHelper {
     static getMeasureQuery(measure) {
-        return `${QueryHelper.getMeasureAggregatorFun(measure.fun)}("${measure.name}") as "${measure.name}"`;
+        return `CAST(${QueryHelper.getMeasureAggregatorFun(measure.fun)}("${measure.name}") AS INTEGER) as "${measure.name}"`;
     }
     static getMeasureAggregatorFun(fun) {
         switch (fun) {
