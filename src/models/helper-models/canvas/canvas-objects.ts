@@ -1,5 +1,5 @@
-import { ElementEnum } from "../enums/enums";
 import { ChartMetadata } from "../charts/chart-metadata";
+import { ElementEnum } from "../enums/enums";
 
 export type XYHW = {
   x: number;

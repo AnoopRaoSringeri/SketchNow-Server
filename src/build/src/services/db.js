@@ -51,7 +51,7 @@ class DuckDBService {
     }
     static async createTableFromCsv(tableName) {
         const csvPath = DuckDBService.getDataPath(tableName);
-        await DuckDBService.executeQuery(`CREATE TABLE '${tableName}' AS FROM '${csvPath}'`, true);
+        await DuckDBService.executeQuery(`CREATE TABLE '${tableName}' AS SELECT * FROM read_csv_auto('${csvPath}')`, true);
     }
     static async truncateTable(tableName) {
         await DuckDBService.executeQuery(`TRUNCATE '${tableName}'`, true);
@@ -79,7 +79,7 @@ class DuckDBService {
     }
     // #region  Helper functions
     static getColumnType(type) {
-        switch (type) {
+        switch (node_api_1.DuckDBTypeId[type]) {
             case node_api_1.DuckDBTypeId.DATE:
                 return "date";
             case node_api_1.DuckDBTypeId.DECIMAL:

@@ -7,15 +7,33 @@ export type ColumnConfig = {
   type: ColumnType;
 };
 
+export enum MeasureAggregateFun {
+  Sum,
+  Average,
+  Max,
+  Min,
+  Count,
+}
+
+export type MeasureConfig = {
+  fun: MeasureAggregateFun;
+} & ColumnConfig;
+
+export type SortConfig = {
+  column: string;
+  sort: "ASC" | "DESC";
+};
+
 export type RowData = Record<string, string | number | null>;
 
 export type DbRowData = Record<string, Json>;
 
 export type ChartDataRequest = {
   id: string;
-  measures: ColumnConfig[];
+  measures: MeasureConfig[];
   dimensions: ColumnConfig[];
   columns: ColumnConfig[];
+  sort: SortConfig[];
 };
 
 export type ChartDataUpdateRequest = {

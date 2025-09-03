@@ -7,7 +7,7 @@ import {
   ChartDataUpdateRequest,
 } from "../models/helper-models/visualize";
 import { DuckDBService } from "../services/db";
-import { GetChartData } from "../utils/data-processor";
+import { QueryGenerator } from "../utils/chart-query-generator";
 import { tryCatch } from "../utils/try-catch";
 
 const Upload = tryCatch(async (req: Request, res: Response) => {
@@ -24,7 +24,7 @@ const Upload = tryCatch(async (req: Request, res: Response) => {
     //
   });
   res.json({
-    data: tableData,
+    papaginatedData: { data: tableData, totalRowCount: tableData.length },
     columns,
     id,
   });
@@ -50,7 +50,7 @@ const UpdateData = tryCatch(
       //
     });
     res.json({
-      data: tableData,
+      papaginatedData: { data: tableData, totalRowCount: tableData.length },
       id,
     });
   },
@@ -61,17 +61,23 @@ const GetData = tryCatch(
     req: Request<{}, {}, ChartDataRequest, { page: number }>,
     res: Response,
   ) => {
-    const { id, measures, dimensions, columns } = req.body;
     const { page } = req.query;
-    const rowsPerPage = 100;
-    const result = await DuckDBService.executeQuery(
-      `SELECT ${columns.map((c) => `"${c.name}"`).join(", ")} FROM '${id}' ${page ? `LIMIT ${page * rowsPerPage} ` : ""};`,
-    );
+    const generator = new QueryGenerator(req.body, page);
+    const result = await DuckDBService.executeQuery(generator.generate());
 
     const tableData = await result.getRowObjectsJson();
 
+    const rowCountQueryRes = await DuckDBService.executeQuery(
+      generator.generateCountQuery(),
+    );
+
+    const rowCount = await rowCountQueryRes.getRows();
+
     res.json({
-      data: GetChartData(tableData, dimensions, measures),
+      paginatedData: {
+        data: tableData,
+        totalRowCount: Number(rowCount[0][0]?.toString() ?? 0),
+      },
     });
   },
 );

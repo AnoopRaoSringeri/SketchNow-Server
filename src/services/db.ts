@@ -66,7 +66,7 @@ export class DuckDBService {
     const csvPath = DuckDBService.getDataPath(tableName);
 
     await DuckDBService.executeQuery(
-      `CREATE TABLE '${tableName}' AS FROM '${csvPath}'`,
+      `CREATE TABLE '${tableName}' AS SELECT * FROM read_csv_auto('${csvPath}')`,
       true,
     );
   }
@@ -109,7 +109,7 @@ export class DuckDBService {
   // #region  Helper functions
 
   private static getColumnType(type: Json): ColumnType {
-    switch (type) {
+    switch (DuckDBTypeId[type as keyof typeof DuckDBTypeId]) {
       case DuckDBTypeId.DATE:
         return "date";
       case DuckDBTypeId.DECIMAL:
