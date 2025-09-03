@@ -8,11 +8,11 @@ export type ColumnConfig = {
 };
 
 export enum MeasureAggregateFun {
-  Sum,
-  Average,
-  Max,
-  Min,
-  Count,
+  Sum = "Sum",
+  Average = "Average",
+  Max = "Max",
+  Min = "Min",
+  Count = "Count",
 }
 
 export type MeasureConfig = {

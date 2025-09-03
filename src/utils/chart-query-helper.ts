@@ -5,7 +5,7 @@ import {
 
 export class QueryHelper {
   static getMeasureQuery(measure: MeasureConfig) {
-    return `${QueryHelper.getMeasureAggregatorFun(measure.fun)}("${measure.name}") as "${measure.name}"`;
+    return `CAST(${QueryHelper.getMeasureAggregatorFun(measure.fun)}("${measure.name}") AS INTEGER) as "${measure.name}"`;
   }
 
   static getMeasureAggregatorFun(fun: MeasureAggregateFun) {
