@@ -13,8 +13,16 @@ export class QueryGenerator {
     this.page = page ?? null;
   }
 
+  get Page() {
+    return this.page;
+  }
+
+  set Page(page: number | null) {
+    this.page = page;
+  }
+
   generate() {
-    return `${this.constructBaseQuery()} ${this.constructLimitQuery()}`;
+    return `SELECT *, ROW_NUMBER() OVER () AS rowid FROM (${this.constructBaseQuery()} ${this.constructLimitQuery()})`;
   }
 
   generateCountQuery() {

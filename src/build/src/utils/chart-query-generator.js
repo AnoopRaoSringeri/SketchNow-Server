@@ -9,8 +9,14 @@ class QueryGenerator {
         this.page = null;
         this.page = page !== null && page !== void 0 ? page : null;
     }
+    get Page() {
+        return this.page;
+    }
+    set Page(page) {
+        this.page = page;
+    }
     generate() {
-        return `${this.constructBaseQuery()} ${this.constructLimitQuery()}`;
+        return `SELECT *, ROW_NUMBER() OVER () AS rowid FROM (${this.constructBaseQuery()} ${this.constructLimitQuery()})`;
     }
     generateCountQuery() {
         return `SELECT COUNT(*) FROM (${this.constructBaseQuery()})`;

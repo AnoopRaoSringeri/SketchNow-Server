@@ -47,14 +47,16 @@ const GetData = (0, try_catch_1.tryCatch)(async (req, res) => {
     var _a, _b;
     const { page } = req.query;
     const generator = new chart_query_generator_1.QueryGenerator(req.body, page);
+    const rowCountQueryRes = await db_1.DuckDBService.executeQuery(generator.generateCountQuery());
+    const rowCountData = await rowCountQueryRes.getRows();
+    const rowCount = Number((_b = (_a = rowCountData[0][0]) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : 0);
     const result = await db_1.DuckDBService.executeQuery(generator.generate());
     const tableData = await result.getRowObjectsJson();
-    const rowCountQueryRes = await db_1.DuckDBService.executeQuery(generator.generateCountQuery());
-    const rowCount = await rowCountQueryRes.getRows();
     res.json({
         paginatedData: {
             data: tableData,
-            totalRowCount: Number((_b = (_a = rowCount[0][0]) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : 0),
+            totalRowCount: rowCount,
+            page: generator.Page,
         },
     });
 });

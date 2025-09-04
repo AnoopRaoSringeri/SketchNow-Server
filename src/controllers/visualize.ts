@@ -63,20 +63,20 @@ const GetData = tryCatch(
   ) => {
     const { page } = req.query;
     const generator = new QueryGenerator(req.body, page);
-    const result = await DuckDBService.executeQuery(generator.generate());
-
-    const tableData = await result.getRowObjectsJson();
 
     const rowCountQueryRes = await DuckDBService.executeQuery(
       generator.generateCountQuery(),
     );
-
-    const rowCount = await rowCountQueryRes.getRows();
+    const rowCountData = await rowCountQueryRes.getRows();
+    const rowCount = Number(rowCountData[0][0]?.toString() ?? 0);
+    const result = await DuckDBService.executeQuery(generator.generate());
+    const tableData = await result.getRowObjectsJson();
 
     res.json({
       paginatedData: {
         data: tableData,
-        totalRowCount: Number(rowCount[0][0]?.toString() ?? 0),
+        totalRowCount: rowCount,
+        page: generator.Page,
       },
     });
   },
