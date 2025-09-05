@@ -1,26 +1,36 @@
-# Use the latest LTS version of Node.js
-FROM node:20-bookworm-slim AS build
- 
-# Set the working directory inside the container
+# Stage 1: Dependencies
+FROM node:20-alpine AS deps
 WORKDIR /app
- 
-# Copy package.json and package-lock.json
-COPY package*.json ./
 
-COPY yarn.lock ./
- 
-# Install dependencies
-RUN yarn install
+# Copy only package.json + lock file first (better layer caching)
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-# RUN apk add gcompat
+# Stage 2: Build
+FROM node:20-alpine AS build
+WORKDIR /app
 
-RUN mkdir -p /app/chart-data
-
-# Copy the rest of your application files
+# Copy deps
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
- 
-# Expose the port your app runs on
+
+# Build TypeScript -> dist/
+RUN yarn build
+
+# Stage 3: Production
+FROM node:20-alpine AS prod
+WORKDIR /app
+
+# Copy only package.json + lock
+COPY package.json yarn.lock ./
+# Install only production deps
+RUN yarn install --frozen-lockfile --production
+
+# Copy compiled JS only (not TS, not tests, not configs)
+COPY --from=build /app/dist ./dist
+
+# Copy runtime assets if needed (e.g. config, public, migrations, etc.)
+# COPY --from=build /app/config ./config
+
 EXPOSE 3000
- 
-# Define the command to run your app
-CMD ["yarn", "docker" ]
+CMD ["node", "dist/main.js"]
