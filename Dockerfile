@@ -27,7 +27,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 
 # Copy compiled JS only (not TS, not tests, not configs)
-COPY --from=build /app/dist ./dist
+COPY --from=build ./dist ./dist
 
 # Copy runtime assets if needed (e.g. config, public, migrations, etc.)
 # COPY --from=build /app/config ./config
