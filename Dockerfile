@@ -1,37 +1,26 @@
 # Stage 1: Dependencies
-FROM node:20-alpine AS deps
+FROM node:20-slim AS deps
 WORKDIR /app
 
-# Copy only package.json + lock file first (better layer caching)
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Stage 2: Build
-FROM node:20-alpine AS build
+FROM node:20-slim AS build
 WORKDIR /app
 
-# Copy deps
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Build TypeScript -> dist/
 RUN yarn buildlocal
 
 # Stage 3: Production
-FROM node:20-alpine AS prod
+FROM node:20-slim AS prod
 WORKDIR /app
 
-# Copy only package.json + lock
 COPY package.json yarn.lock ./
-# Install only production deps
 RUN yarn install --frozen-lockfile --production
 
-RUN ls
-# Copy compiled JS only (not TS, not tests, not configs)
 COPY --from=build /app/build ./dist
-
-# Copy runtime assets if needed (e.g. config, public, migrations, etc.)
-# COPY --from=build /app/config ./config
 
 EXPOSE 3000
 CMD ["yarn", "start"]
