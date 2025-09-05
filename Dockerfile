@@ -15,7 +15,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Build TypeScript -> dist/
-RUN yarn build
+RUN yarn buildlocal
 
 # Stage 3: Production
 FROM node:20-alpine AS prod
@@ -28,7 +28,7 @@ RUN yarn install --frozen-lockfile --production
 
 RUN ls
 # Copy compiled JS only (not TS, not tests, not configs)
-COPY --from=build /app/dist ./dist
+COPY --from=build /app/build ./dist
 
 # Copy runtime assets if needed (e.g. config, public, migrations, etc.)
 # COPY --from=build /app/config ./config
