@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const sketches_1 = require("../../controllers/sketches");
+const sketchRouter = (0, express_1.Router)();
+sketchRouter.get("/sketches", sketches_1.Get);
+sketchRouter.get("/sketch/:id", sketches_1.GetById);
+sketchRouter.get("/imageData/:id", sketches_1.GetImageData);
+sketchRouter.post("/create", sketches_1.Create);
+sketchRouter.post("/update/:id", sketches_1.Update);
+sketchRouter.delete("/delete/:id", sketches_1.Delete);
+exports.default = sketchRouter;

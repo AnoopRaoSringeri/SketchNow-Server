@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const visualize_1 = require("../../controllers/visualize");
+const upload_1 = require("../../middlewares/upload");
+const uploadRouter = (0, express_1.Router)();
+uploadRouter.post("/upload", upload_1.upload.single("file"), visualize_1.Upload);
+uploadRouter.post("/update", upload_1.upload.single("file"), visualize_1.UpdateData);
+uploadRouter.post("/data", visualize_1.GetData);
+uploadRouter.get("/sourceData/:sourceId", visualize_1.GetSourceData);
+exports.default = uploadRouter;

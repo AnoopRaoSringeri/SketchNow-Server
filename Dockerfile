@@ -33,4 +33,4 @@ COPY --from=build /app/dist ./dist
 # COPY --from=build /app/config ./config
 
 EXPOSE 3000
-CMD ["node", "dist/main.js"]
+CMD ["yarn", "start"]
