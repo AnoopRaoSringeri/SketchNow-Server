@@ -58,4 +58,4 @@ COPY --from=build /app/build ./dist
 # COPY --from=build /app/config ./config
 
 EXPOSE 5000
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
