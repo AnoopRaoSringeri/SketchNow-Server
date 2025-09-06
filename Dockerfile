@@ -57,5 +57,5 @@ COPY --from=build /app/build ./dist
 # Optional: copy runtime assets (configs, migrations, etc.)
 # COPY --from=build /app/config ./config
 
-EXPOSE 3000
-CMD ["dist/src/server.js"]
+EXPOSE 5000
+CMD ["yarn", "start"]
