@@ -58,4 +58,5 @@ COPY --from=build /app/build ./dist
 # COPY --from=build /app/config ./config
 
 EXPOSE 5000
-CMD ["npm", "start"]
+CMD ["node", "build/src/server.js"]
+
