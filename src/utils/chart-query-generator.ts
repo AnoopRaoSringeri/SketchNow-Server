@@ -22,7 +22,8 @@ export class QueryGenerator {
   }
 
   generate() {
-    return `SELECT *, ROW_NUMBER() OVER () AS rowid FROM (${this.constructBaseQuery()} ${this.constructLimitQuery()})`;
+    const orderByQuery = this.constructOrderByQuery();
+    return `SELECT *, ROW_NUMBER() OVER (${orderByQuery}) AS rowid FROM (${this.constructBaseQuery()} ${this.constructLimitQuery()})`;
   }
 
   generateCountQuery() {
@@ -34,9 +35,8 @@ export class QueryGenerator {
     const { id } = this.request;
     const measureQuery = this.constructMeasureQuery();
     const dimensionQuery = this.constructDimensionQuery();
-    const orderByQuery = this.constructOrderByQuery();
     const groupByQuery = this.constructGroupByQuery();
-    query = `SELECT ${dimensionQuery}, ${measureQuery}  FROM '${id}' ${groupByQuery} ${orderByQuery}`;
+    query = `SELECT ${dimensionQuery}, ${measureQuery}  FROM '${id}' ${groupByQuery}`;
     return query;
   }
 
@@ -59,12 +59,12 @@ export class QueryGenerator {
   private constructOrderByQuery() {
     const queries: string[] = [];
     this.request.sort.forEach((s) => {
-      const measure = this.request.measures.find((m) => m.name === s.column);
-      if (measure) {
-        queries.push(`${QueryHelper.getMeasureQuery(measure)} ${s.sort}`);
-      } else {
-        queries.push(`"${s.column}" ${s.sort}`);
-      }
+      // const measure = this.request.measures.find((m) => m.name === s.column);
+      // if (measure) {
+      //   queries.push(`${QueryHelper.getMeasureQuery(measure)} ${s.sort}`);
+      // } else {
+      queries.push(`"${s.column}" ${s.sort}`);
+      // }
     });
     return queries.length == 0 ? "" : `ORDER BY ${queries.join(", ")}`;
   }
